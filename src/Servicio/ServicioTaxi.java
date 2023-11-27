@@ -15,6 +15,55 @@ public class ServicioTaxi extends Servicio{
         super(fecha,origen,destino,valorPagar,numServicio,idServicio);
         this.numPersonas=numPersonas;
     }
+
+    public static ArrayList<String> LeeConductor(String nombrearchivo) {
+        ArrayList<String> lineas = new ArrayList<>();
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            archivo = new File(nombrearchivo);
+            fr = new FileReader(archivo, StandardCharsets.UTF_8);
+            br = new BufferedReader(fr);
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                System.out.println(linea);
+                lineas.add(linea);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (br != null) {
+                    br.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return lineas;
+    }
+    
+    @Override
+    public Conductor crearConductor(){
+      conductor=new Conductor();
+      ArrayList<String> estados=conductor.obtenerEstado();
+      ArrayList<String> vehiculos=conductor.obtenerVehiculo();
+      for(int i=0;i<estados.size();i++){
+        String estado=estados.get(i);
+        String vehiculo=vehiculos.get(i);
+        if(estado.equals("D") && vehiculo.equals("A")){
+          state estadoConductor=state.valueOf(estado);
+          TipoVehiculo tipodeVehiculo=TipoVehiculo.valueOf(vehiculo);
+          Vehiculo vehiculoConductor=new Vehiculo(tipodeVehiculo);
+          Conductor conductorDisponibleTaxi=new Conductor(estadoConductor,vehiculoConductor);
+          //Conductor(String numLicencia, state estado, String nombre, String apellido, String numCedula, int edad) 
+          return conductorDisponibleTaxi;
+        }
+      }
+      return null;
+    } 
+
     public void ingresarDatos(){
         Scanner sc=new Scanner(System.in);
         System.out.println("Ingrese el origen de su viaje: ");
