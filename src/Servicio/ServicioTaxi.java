@@ -15,6 +15,9 @@ import java.nio.charset.StandardCharsets;
  */
 public class ServicioTaxi extends Servicio{
     private int numPersonas;
+    public ServicioTaxi(){
+        
+    }
     public ServicioTaxi(String fecha,String hora,String origen,String destino,Conductor conductor,double valorPagar,int numServicio,int idServicio,int numPersonas){
         super(fecha,hora,conductor,origen,destino,valorPagar,numServicio,idServicio);
         this.numPersonas=numPersonas;
@@ -98,7 +101,7 @@ public class ServicioTaxi extends Servicio{
       if(confirmarViaje.equals("1")){
         System.out.println("viaje confirmado");
         conductorDisponible = crearConductor();
-        ServicioTaxi servicioTaxiNuevo=new ServicioTaxi(fecha,hora,conductorDisponible,origen,destino,valorPagar,super.numServicio,super.idServicio,numPersonas);
+        ServicioTaxi servicioTaxiNuevo=new ServicioTaxi(fecha,hora,origen,destino,conductorDisponible,valorPagar,,super.numServicio,super.idServicio,numPersonas);
         super.numServicio++;
         System.out.println("Servicio de Taxi creado");
         System.out.println("Usted ha pagado: $"+valorPagar);
