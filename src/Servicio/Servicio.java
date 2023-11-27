@@ -8,7 +8,7 @@ import Usuario.*;
  *
  * @author GEOVANNY
  */
-public class Servicio {
+public class Servicio{
     protected String fecha;
     protected String hora;
     protected Conductor conductor;
