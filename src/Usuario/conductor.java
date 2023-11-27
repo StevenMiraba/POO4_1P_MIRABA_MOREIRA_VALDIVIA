@@ -132,4 +132,36 @@ public static ArrayList<String> LeeConductor(String nombrearchivo) {
                           "\n marca: "+marca.get(i));
       }
         
-  }}
+  }
+  }
+ @Override
+  public void consultarServicio(){
+      System.out.println("/**********SERVICIO ASIGNADO**********/");
+      System.out.println("/*                                   */");
+      System.out.println("/*************************************/");
+    ArrayList<String> tipoServicios=new ArrayList<>();
+    ArrayList<String> fechas=new ArrayList<>();
+    ArrayList<String> horas=new ArrayList<>();
+    ArrayList<String> origenes=new ArrayList<>();
+    ArrayList<String> destinos=new ArrayList<>();
+      ArrayList<String> Lineas= LeeConductor("Servicio/servicios.txt");
+      for(String linea:Lineas){
+        String[] lineas=linea.split(",");
+        tipoServicios.add(lineas[1]);
+        fechas.add(lineas[6]);
+        horas.add(lineas[7]);
+        origenes.add(lineas[4]);
+        destinos.add(lineas[5]);
+      }
+      for(int i=0;i<fechas.size();i++){
+        System.out.println("/*************************************/");
+        System.out.println("Tipo: "+tipoServicios.get(i)+
+                          "\n Fecha: "+fechas.get(i)+
+                          "\n Hora: "+horas.get(i)+
+                          "\n Desde: "+origenes.get(i)+
+                          "\n Hasta: "+destinos.get(i));
+      }
+      
+  }
+    
+}
