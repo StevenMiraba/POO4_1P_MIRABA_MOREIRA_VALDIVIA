@@ -15,9 +15,7 @@ public class Cliente extends Usuario{
        super(nombre,apellido,user,contraseña,numCedula,numCelular,tipoUsuario,edad);
        this.numTarjCredito=numTarjCredito;
     }
-    public void registrarCliente(int edad, String numTarjCredito){
-        
-    }
+    
     public void presentarMenu(){
         System.out.println("/***************MENU***************/");
         System.out.println("/*                                */");
@@ -52,4 +50,27 @@ public class Cliente extends Usuario{
           }
       }
      
+}
+public void seleccionarServicio(Cliente cliente,Conductor conductor){
+        String entrada = "";
+        Scanner sc=new Scanner(System.in);
+        ServicioTaxi svt=new ServicioTaxi();
+        ServicioEncomiendas sve=new ServicioEncomiendas();
+      presentarMenu();
+      System.out.print("Ingrese opcion: ");
+      entrada = sc.nextLine();
+      switch(entrada){
+          case "1":
+              svt.ingresarDatosTaxi(cliente);//argumento CLIENTE
+              svt.registrarServicioTaxi(cliente,conductor);//ARGUMENTOS
+              break;
+          case "2":
+              sve.ingresarDatosEncomienda();
+              sve.registrarServicioEncomienda(cliente,conductor);
+              break;
+        case "3":
+                 
+      }
+    }
+ 
 }
