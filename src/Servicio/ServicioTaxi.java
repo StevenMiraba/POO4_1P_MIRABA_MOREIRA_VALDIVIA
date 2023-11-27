@@ -147,17 +147,25 @@ public void registrarServicioTaxi(Cliente cliente,Conductor conductor){
         }
       }
     
-    @Override
-    public double calcularValorPagar(){
-        Random rd=new Random();
-        int distancia =rd.nextInt(41)+5;
-        double costoPorKm=0.50;
-        double subtotal=distancia*costoPorKm;
-        System.out.println("El subtotal a pagar es: "+subtotal);
-        return subtotal;
+@Override
+public double calcularValorPagar(){
+    Random rd=new Random();
+    int distancia =rd.nextInt(41)+5;
+    double costoPorKm=0.50;
+    double valorPagar=distancia*costoPorKm;
+    return valorPagar;
     }
-    public void calcularValorPagar(String numTarjCredito){
-        System.out.println("El subtotal a pagar es: $"+(calcularValorPagar()*1.10));
+
+public double calcularValorPagar(String numTarjCredito){
+    double valorPagar=(calcularValorPagar()*1.10);
+    System.out.println("El subtotal a pagar es: $"+valorPagar);
+    return valorPagar;
     }
-    
+
+@Override
+public void mostrarInformacion(){
+    System.out.println("Tipo: Viaje" + 
+                    "\n Cantidad pasajeros: "+numPersonas);
+    super.mostrarInformacion();
+    }  
 }
