@@ -19,6 +19,9 @@ public abstract class Usuario {
     protected String numCelular;
     protected typeUsuario tipoUsuario;
     protected int edad;
+    public Usuario(){
+      
+    }
 
     public Usuario(String nombre,String apellido,String user,String contraseña,String numCedula,String numCelular,typeUsuario tipoUsuario,int edad){
         this.nombre=nombre;
@@ -78,7 +81,6 @@ public abstract class Usuario {
     public void setEdad(int edad){
         this.edad=edad;
     }
-    public void consultarServicio(){        
-}    
+    public abstract void consultarServicio();
 }
 
