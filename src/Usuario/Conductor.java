@@ -104,7 +104,7 @@ public static ArrayList<String> LeeConductor(String nombrearchivo) {
               consultarServicio();
             break;
         case "2": //2. Datos de su vehículo
-            datosVehiculos();
+            datosVehiculo();
             break;
       
 
