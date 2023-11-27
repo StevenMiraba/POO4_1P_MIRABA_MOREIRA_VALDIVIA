@@ -15,41 +15,125 @@ public class Cliente extends Usuario{
        super(nombre,apellido,user,contraseña,numCedula,numCelular,tipoUsuario,edad);
        this.numTarjCredito=numTarjCredito;
     }
-    public void registrarCliente(int edad, String numTarjCredito){
-        
+ public String getNumTarjCredito(){
+      return numTarjCredito;
     }
+    public static ArrayList<String> LeeCliente(String nombrearchivo) {
+        ArrayList<String> lineas = new ArrayList<>();
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+
+        try {
+            archivo = new File(nombrearchivo);
+            fr = new FileReader(archivo, StandardCharsets.UTF_8);
+            br = new BufferedReader(fr);
+
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                System.out.println(linea);
+                lineas.add(linea);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (br != null) {
+                    br.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return lineas;
+    }
+
+    //OBTENER USUARIO
+    public ArrayList<String> obtenerUsuario(){
+      ArrayList<String> usuarios = new ArrayList<>();
+      ArrayList<String> Lineas= LeeCliente("Usuario/usuarios.txt");
+      for(String linea:Lineas){
+        String[] lineas=linea.split(",");
+        String user1=lineas[3];
+        usuarios.add(user1);
+
+      }
+      return usuarios;
+    }
+
+     public String obtenerTipoUsuario(String usuario){
+      ArrayList<String> Lineas= LeeCliente("Usuario/usuarios.txt");
+      String tipoUsuario=null;
+      for(String linea:Lineas){
+        String[] lineas=linea.split(",");
+        if(usuario.equals(lineas[3])){
+          tipoUsuario=lineas[6];    
+        }
+    }
+      return tipoUsuario;
+    }
+ 
     public void presentarMenu(){
         System.out.println("/***************MENU***************/");
         System.out.println("/*                                */");
         System.out.println("/**********************************/");
         System.out.println("1. Solicitar servicio de taxi");
-        System.out.println("2. Solicitar comida a domicilio");
-        System.out.println("3. Solicitar entrega encomienda");
-        System.out.println("4. Consultar servicios");
+        System.out.println("2. Solicitar entrega encomienda");
+        System.out.println("3. Consultar servicios");
+
     }
+    public void registrarCliente(String numcedula, int edad, String numTarjCredito){
+      String nombreArchivo="Usuario/clientes.txt";
+
+      FileWriter fichero = null;
+      BufferedWriter bw = null;
+
+      try {
+          fichero = new FileWriter(nombreArchivo, true);
+          bw = new BufferedWriter(fichero);
+          String linea = "\"" + numcedula + "\"," + edad + ",\"" + numTarjCredito + "\"";
+          bw.write(linea + "\n");
+          System.out.println("Cliente agregado al archivo.");
+
+      } catch (IOException e) {
+          e.printStackTrace();
+      } finally {
+          try {
+              if (bw != null) {
+                  bw.close();
+              }
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
+      }
+     
+}
+ @Override
     public void consultarServicio(){
+      ArrayList<Servicio> servicios=new ArrayList<>();
+
+    }
+public void seleccionarServicio(Cliente cliente,Conductor conductor){
         String entrada = "";
         Scanner sc=new Scanner(System.in);
-        do{
-            presentarMenu();
-            System.out.print("Ingrese opcion: ");
-            entrada = sc.nextLine();
-            switch(entrada){
-                case "1":
-                    System.out.println("Ingrese el origen de su viaje: ");
-                    String origen =sc.nextLine();
-                    System.out.println("Ingrese el destino de su viaje: ");
-                    String destino=sc.nextLine();
-                    System.out.println("Ingrese la fecha de su viaje: ");
-                    String fecha=sc.nextLine();
-                    System.out.println("Ingrese la hora de su viaje: ");
-                    String hora=sc.nextLine();
-                    System.out.println("Ingrese la forma de pago: ");
-                    String tipoPago=sc.nextLine();
-                    System.out.println("Ingrese el numero de personas que viajan: ");
-                    int pasajeros = sc.nextInt();
-                    sc.nextLine();
-            }
-        }while(!entrada.equals(""));
+        ServicioTaxi svt=new ServicioTaxi();
+        ServicioEncomiendas sve=new ServicioEncomiendas();
+      presentarMenu();
+      System.out.print("Ingrese opcion: ");
+      entrada = sc.nextLine();
+      switch(entrada){
+          case "1":
+              svt.ingresarDatosTaxi(cliente);//argumento CLIENTE
+              svt.registrarServicioTaxi(cliente,conductor);//ARGUMENTOS
+              break;
+          case "2":
+              sve.ingresarDatosEncomienda();
+              sve.registrarServicioEncomienda(cliente,conductor);
+              break;
+        case "3":
+                 
+      }
     }
+ 
 }
