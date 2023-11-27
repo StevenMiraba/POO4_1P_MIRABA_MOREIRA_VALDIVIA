@@ -19,6 +19,9 @@ public class Cliente extends Usuario{
        super(nombre,apellido,user,contraseña,numCedula,numCelular,tipoUsuario,edad);
        this.numTarjCredito=numTarjCredito;
     }
+    public Cliente(){
+        
+    }
  public String getNumTarjCredito(){
       return numTarjCredito;
     }
