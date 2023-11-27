@@ -6,7 +6,7 @@ package Servicio;
 
 /**
  *
- * @author STEVEN
+ * @author GEOVANNY
  */
 public class Servicio {
     //private Ruta ruta;
