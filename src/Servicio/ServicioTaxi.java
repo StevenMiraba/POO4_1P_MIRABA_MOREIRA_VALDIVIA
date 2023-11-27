@@ -7,7 +7,7 @@ import java.util.Scanner;
 import java.util.Random;
 /**
  *
- * @author STEVEN
+ * @author GEOVANNY
  */
 public class ServicioTaxi extends Servicio{
     private int numPersonas;
@@ -64,20 +64,89 @@ public class ServicioTaxi extends Servicio{
       return null;
     } 
 
-    public void ingresarDatos(){
-        Scanner sc=new Scanner(System.in);
-        System.out.println("Ingrese el origen de su viaje: ");
-        origen =sc.nextLine();
-        System.out.println("Ingrese el destino de su viaje: ");
-        destino=sc.nextLine();
-        System.out.println("Ingrese la fecha y hora de su viaje: ");
-        fecha=sc.nextLine();
-        System.out.println("Ingrese la forma de pago: ");
-        String tipoPago=sc.nextLine();
-        System.out.println("Ingrese el numero de personas que viajan: ");
-        numPersonas = sc.nextInt();
-        sc.nextLine();
-    }
+  public void ingresarDatosTaxi(Cliente cliente){
+    Conductor conductorDisponible=new Conductor();
+    Scanner sc=new Scanner(System.in);
+    System.out.print("Ingrese el origen de su viaje: ");
+    origen =sc.nextLine();
+    System.out.print("Ingrese el destino de su viaje: ");
+    destino=sc.nextLine();
+    System.out.print("Ingrese la fecha: ");
+    fecha=sc.nextLine();  
+    System.out.print("Ingrese la hora: ");
+    hora=sc.nextLine();
+    System.out.print("Ingrese la forma de pago: ");
+    String formaPagoElegida=sc.nextLine().toUpperCase();
+    TipoPago formaPago=TipoPago.valueOf(formaPagoElegida);
+    Pago pago=new Pago(formaPago);
+    System.out.println("Ingrese el numero de personas que viajan: ");
+    numPersonas = sc.nextInt();
+    sc.nextLine();
+    //sc.close();
+    String comprobar=pago.calcularCosto();
+    if(comprobar.equals("efectivo")){
+        valorPagar=calcularValorPagar();
+      }else if(comprobar.equals("TarjetaCredito")){
+        valorPagar=calcularValorPagar(cliente.getNumTarjCredito());//argumento es la tarjeta de credito
+      }
+      System.out.println("Desea confirmar su viaje?:"+ "\n 1. Si" + "\n 2. No");
+      String confirmarViaje=sc.nextLine();
+      if(confirmarViaje.equals("1")){
+        System.out.println("viaje confirmado");
+        conductorDisponible = crearConductor();
+        ServicioTaxi servicioTaxiNuevo=new ServicioTaxi(fecha,hora,conductorDisponible,origen,destino,valorPagar,super.numServicio,super.idServicio,numPersonas);
+        super.numServicio++;
+        System.out.println("Servicio de Taxi creado");
+        System.out.println("Usted ha pagado: $"+valorPagar);
+              }else if(confirmarViaje.equals("2")){
+        System.out.println("viaje rechazado, será redireccionado al menú principal");
+        cliente.seleccionarServicio(cliente,conductorDisponible);
+      }
+      String nombreArchivo="Servicio/vijes.txt";
+        FileWriter fichero = null;
+        BufferedWriter bw = null;
+        try {
+            fichero = new FileWriter(nombreArchivo, true);
+            bw = new BufferedWriter(fichero);
+            String linea = "\"" + super.numServicio+"\","+numPersonas + "\"," + distancia + ",\"" +valorPagar+"\"";
+            bw.write(linea + "\n");
+            System.out.println("Encomienda agregado al archivo.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bw != null) {
+                    bw.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+      }
+
+public void registrarServicioTaxi(Cliente cliente,Conductor conductor){
+    String nombreArchivo="Servicio/servicios.txt";
+    FileWriter fichero = null;
+    BufferedWriter bw = null;
+    try {
+        fichero = new FileWriter(nombreArchivo, true);
+        bw = new BufferedWriter(fichero);
+        String linea = "\"" + super.numServicio + "\"," + "T" +",\""+cliente.getNumCedula()+",\""+conductor.getNombre()+ origen+",\""+destino+",\""+fecha+",\""+hora+",\"" + cliente.getNumTarjCredito() + "\"";
+        bw.write(linea + "\n");
+        System.out.println("Servicio agregado al archivo.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bw != null) {
+                    bw.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+      }
+    
     @Override
     public double calcularValorPagar(){
         Random rd=new Random();
