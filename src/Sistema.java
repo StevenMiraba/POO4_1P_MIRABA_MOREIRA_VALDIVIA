@@ -37,7 +37,45 @@ public class Sistema {
         System.out.print("CONTRASEÑA: ");
         String key1 = sc.nextLine();
         ArrayList<String> Users = cl.obtenerUsuario();
-            
+        String sino = "no";
+      for (String user : Users) {
+        if (user1.equals(user)) {
+          String tipoUsuario=cl.obtenerTipoUsuario(user);
+          if(tipoUsuario.equals("C")){
+            cl.seleccionarServicio(cl,cd);
+          }else if(tipoUsuario.equals("R")){
+             System.out.println("Menu del conductor");
+            cd.seleccionarMenuConductor();
+          }
+          sino = "si";
+
         }
+      }
+      if (sino.equals("no")) {
+        System.out.println("Ingrese su numero de cedula: ");
+        String cedula = sc.nextLine();
+        System.out.println("Ingrese su edad: ");
+        int edad = sc.nextInt();
+        sc.nextLine();
+        System.out.println("Ingrese su numero de tarjeta de credito: ");
+        String tarjCredit = sc.nextLine();
+        System.out.println("Seleccionar el tipo de usuario");
+        System.out.println("C. Cliente ");
+        System.out.println("R. Conductor ");
+        System.out.println("Ingrese su opcion: ");
+        String tipoUsuario=sc.nextLine().toUpperCase();
+        cl.registrarCliente(cedula, edad, tarjCredit);
+        if(tipoUsuario.equals("C")){
+          cl.seleccionarServicio(cl,cd);
+        }else if(tipoUsuario.equals("R")){
+          System.out.println("menu del conductor");
+          cd.seleccionarMenuConductor();
+        }
+        typeUsuario tipoDeUsuario=typeUsuario.valueOf(tipoUsuario);
+      }
+      sc.close();
+
     }
-//}
+        }
+    
+
