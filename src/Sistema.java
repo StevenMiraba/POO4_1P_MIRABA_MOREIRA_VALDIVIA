@@ -4,7 +4,7 @@
  */
 import Servicio.Pago;
 import Servicio.Servicio;
-import Usuario.Usuario;
+import Usuario.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
@@ -15,6 +15,7 @@ public class Sistema {
     public ArrayList<Usuario> usuarios;
     public ArrayList<Pago> pagos;
     public ArrayList<Servicio> servicios;
+    
     public Sistema(ArrayList<Usuario> usuarios,ArrayList<Pago>pagos,ArrayList<Servicio> servicios){
         this.usuarios=usuarios;
         this.pagos=pagos;
@@ -24,15 +25,17 @@ public class Sistema {
         
     }
     public static void main(String[] args){
+        Cliente cl = new Cliente();
+        Conductor cd=new Conductor();
         System.out.println("+".repeat(31));
-        System.out.println("     "+"BIENVENIDO AL SISTEMA"+"     ");
+        System.out.println("     " + "BIENVENIDO AL SISTEMA" + "     ");
         System.out.println("+".repeat(31));
-        Scanner sc=new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         System.out.print("USUARIO: ");
-        String user1= sc.nextLine();
+        String user1 = sc.nextLine();
         System.out.print("CONTRASEÑA: ");
-        String key1= sc.nextLine();
-        //if(){
+        String key1 = sc.nextLine();
+        ArrayList<String> Users = cl.obtenerUsuario();
             
         }
     }
