@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class Sistema {
     public ArrayList<Usuario> usuarios;
     public ArrayList<Pago> pagos;
+    
     public ArrayList<Servicio> servicios;
     
     public Sistema(ArrayList<Usuario> usuarios,ArrayList<Pago>pagos,ArrayList<Servicio> servicios){
@@ -25,8 +26,8 @@ public class Sistema {
         
     }
     public static void main(String[] args){
-        //Cliente cl = new Cliente();
-        //Conductor cd=new Conductor();
+        Cliente cl = new Cliente();
+        Conductor cd=new Conductor();
         System.out.println("+".repeat(31));
         System.out.println("     " + "BIENVENIDO AL SISTEMA" + "     ");
         System.out.println("+".repeat(31));
@@ -35,7 +36,7 @@ public class Sistema {
         String user1 = sc.nextLine();
         System.out.print("CONTRASEÑA: ");
         String key1 = sc.nextLine();
-        //ArrayList<String> Users = cl.obtenerUsuario();
+        ArrayList<String> Users = cl.obtenerUsuario();
             
         }
     }
