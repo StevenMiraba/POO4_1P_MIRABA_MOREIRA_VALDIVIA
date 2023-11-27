@@ -32,4 +32,24 @@ public Pago(TipoPago formaPago){
     this.formaPago=formaPago;
     
   }
+  public String calcularCosto(){
+      String formPago="";
+      //double valorPagar=0;
+      if(formaPago!=null){
+          switch(formaPago){
+              case EFECTIVO:
+                  formPago="Efectivo";
+                  break;
+              case TARJETA_DE_CREDITO:
+                  formPago="TarjetaCredito";
+              
+                  break;
+              default:
+                  //la base es incorrecta retorna -1
+                  return "default";
+          }
+          return formPago;
+      }
+      return " ";
+  }
 }
