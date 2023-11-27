@@ -25,8 +25,8 @@ public class Sistema {
         
     }
     public static void main(String[] args){
-        Cliente cl = new Cliente();
-        Conductor cd=new Conductor();
+        //Cliente cl = new Cliente();
+        //Conductor cd=new Conductor();
         System.out.println("+".repeat(31));
         System.out.println("     " + "BIENVENIDO AL SISTEMA" + "     ");
         System.out.println("+".repeat(31));
@@ -35,7 +35,7 @@ public class Sistema {
         String user1 = sc.nextLine();
         System.out.print("CONTRASEÑA: ");
         String key1 = sc.nextLine();
-        ArrayList<String> Users = cl.obtenerUsuario();
+        //ArrayList<String> Users = cl.obtenerUsuario();
             
         }
     }
