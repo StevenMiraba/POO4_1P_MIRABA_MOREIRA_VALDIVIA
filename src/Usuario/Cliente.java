@@ -3,7 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Usuario;
+import Servicio.*;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 //import Servicio.*;
 /**
  *
