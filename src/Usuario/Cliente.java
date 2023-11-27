@@ -61,6 +61,18 @@ public class Cliente extends Usuario{
       }
       return usuarios;
     }
+
+     public String obtenerTipoUsuario(String usuario){
+      ArrayList<String> Lineas= LeeCliente("Usuario/usuarios.txt");
+      String tipoUsuario=null;
+      for(String linea:Lineas){
+        String[] lineas=linea.split(",");
+        if(usuario.equals(lineas[3])){
+          tipoUsuario=lineas[6];    
+        }
+    }
+      return tipoUsuario;
+    }
  
     public void presentarMenu(){
         System.out.println("/***************MENU***************/");
