@@ -8,6 +8,7 @@ package Servicio;
  *
  * @author GEOVANNY
  */
+import Usuario.TipoVehiculo;
 import java.util.Scanner;
 import java.util.Random;
 import Usuario.*;
@@ -113,6 +114,31 @@ public void ingresarDatosEncomienda(){
         } catch (IOException e) {
             e.printStackTrace();
         }
+      }
+    }
+public void registrarServicioEncomienda(Cliente cliente,Conductor conductor){
+    String nombreArchivo="Servicio/servicios.txt";
+    Cliente cl=new Cliente();
+    FileWriter fichero = null;
+    BufferedWriter bw = null;
+
+    try {
+        fichero = new FileWriter(nombreArchivo, true);
+        bw = new BufferedWriter(fichero);
+        String linea = "\"" + super.numServicio + "\"," + "E" +",\""+cliente.getNumCedula()+",\""+conductor.getNombre()+ origen+",\""+destino+",\""+fecha+",\""+hora+",\"" + cl.getNumTarjCredito() + "\"";
+          bw.write(linea + "\n");
+          System.out.println("Servicio agregado al archivo.");
+
+      } catch (IOException e) {
+          e.printStackTrace();
+      } finally {
+          try {
+              if (bw != null) {
+                  bw.close();
+              }
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
       }
     }
 }
