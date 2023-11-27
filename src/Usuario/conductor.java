@@ -33,3 +33,103 @@ public class Conductor extends Usuario{
   public state getEstado() {
       return estado;
   }
+
+public static ArrayList<String> LeeConductor(String nombrearchivo) {
+      ArrayList<String> lineas = new ArrayList<>();
+      File archivo = null;
+      FileReader fr = null;
+      BufferedReader br = null;
+
+      try {
+          archivo = new File(nombrearchivo);
+          fr = new FileReader(archivo, StandardCharsets.UTF_8);
+          br = new BufferedReader(fr);
+
+          String linea;
+          while ((linea = br.readLine()) != null) {
+              System.out.println(linea);
+              lineas.add(linea);
+          }
+
+      } catch (IOException e) {
+          e.printStackTrace();
+      } finally {
+          try {
+              if (br != null) {
+                  br.close();
+              }
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
+      }
+      return lineas;
+  }
+  public ArrayList<String> obtenerEstado(){
+    ArrayList<String> estados = new ArrayList<>();
+    ArrayList<String> Lineas= LeeConductor("Usuario/conductores.txt");
+    for(String linea:Lineas){
+      String[] lineas=linea.split(",");
+      String estado=lineas[1];
+      estados.add(estado);
+      }
+    return estados;
+    }
+  
+  public ArrayList<String> obtenerVehiculo(){
+    ArrayList<String> vehiculos = new ArrayList<>();
+    ArrayList<String> Lineas= LeeConductor("Usuario/vehiculos.txt");
+    for(String linea:Lineas){
+      String[] lineas=linea.split(",");
+      String vehiculo=lineas[4];
+      vehiculos.add(vehiculo);
+      }
+    return vehiculos;
+    }
+  public void presentarMenu(){
+      System.out.println("/**********MENU CONDUCTOR**********/");
+      System.out.println("/*                                */");
+      System.out.println("/**********************************/");
+      System.out.println("1. Consultar Servicio Asignado");
+      System.out.println("2. Datos de su vehículo");
+  }
+  
+  public void seleccionarMenuConductor(){
+    String entrada = "";
+    Scanner sc=new Scanner(System.in);
+    presentarMenu();
+    System.out.print("Ingrese opcion: ");
+    entrada = sc.nextLine();
+    switch(entrada){
+        case "1": //1. Consultar Servicio Asignado
+              consultarServicio();
+            break;
+        case "2": //2. Datos de su vehículo
+            datosVehiculos();
+            break;
+      
+
+    }
+  }
+  public void datosVehiculo(){
+    System.out.println("/***********Datos Vehiculo************/");
+    System.out.println("/*                                   */");
+    System.out.println("/*************************************/");
+
+    ArrayList<String> placa=new ArrayList<>();
+    ArrayList<String> modelo=new ArrayList<>();
+    ArrayList<String> marca=new ArrayList<>();
+    
+    ArrayList<String> Lineas= LeeConductor("Usuario/vehiculos.txt");
+    for(String linea:Lineas){
+      String[] lineas=linea.split(",");
+      placa.add(lineas[1]);
+      modelo.add(lineas[2]);
+      marca.add(lineas[3]);
+      for(int i=0;i<placa.size();i++){
+        System.out.println("/*************************************/");
+        System.out.println("placa: "+placa.get(i)+
+                          "\n modelo: "+modelo.get(i)+
+                          "\n marca: "+marca.get(i));
+      }
+        
+  }}
