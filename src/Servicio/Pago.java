@@ -14,4 +14,22 @@ public class Pago {
     private int ID_Servicio;
     private TipoPago formaPago;
     private double valorPagar;
+
+public Pago(TipoPago formaPago){
+    this.formaPago=formaPago;
+  }
+  public Pago(int ID_Pago,String fechaPago,int ID_Servicio,TipoPago formaPago,double valorPagar){
+    this.ID_Pago=ID_Pago;
+    this.fechaPago=fechaPago;
+    this.ID_Servicio=ID_Servicio;
+    this.formaPago=formaPago;
+    this.valorPagar=valorPagar;
+  }
+  public TipoPago getFormaPago(){
+      return formaPago;
+  }
+  public void setFormaPago(TipoPago formaPago){
+    this.formaPago=formaPago;
+    
+  }
 }
