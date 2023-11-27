@@ -27,29 +27,29 @@ public class Cliente extends Usuario{
         System.out.println("3. Solicitar entrega encomienda");
         System.out.println("4. Consultar servicios");
     }
-    public void consultarServicio(){
-        String entrada = "";
-        Scanner sc=new Scanner(System.in);
-        do{
-            presentarMenu();
-            System.out.print("Ingrese opcion: ");
-            entrada = sc.nextLine();
-            switch(entrada){
-                case "1":
-                    System.out.println("Ingrese el origen de su viaje: ");
-                    String origen =sc.nextLine();
-                    System.out.println("Ingrese el destino de su viaje: ");
-                    String destino=sc.nextLine();
-                    System.out.println("Ingrese la fecha de su viaje: ");
-                    String fecha=sc.nextLine();
-                    System.out.println("Ingrese la hora de su viaje: ");
-                    String hora=sc.nextLine();
-                    System.out.println("Ingrese la forma de pago: ");
-                    String tipoPago=sc.nextLine();
-                    System.out.println("Ingrese el numero de personas que viajan: ");
-                    int pasajeros = sc.nextInt();
-                    sc.nextLine();
-            }
-        }while(!entrada.equals(""));
-    }
+    public void registrarCliente(String numcedula, int edad, String numTarjCredito){
+      String nombreArchivo="Usuario/clientes.txt";
+
+      FileWriter fichero = null;
+      BufferedWriter bw = null;
+
+      try {
+          fichero = new FileWriter(nombreArchivo, true);
+          bw = new BufferedWriter(fichero);
+          String linea = "\"" + numcedula + "\"," + edad + ",\"" + numTarjCredito + "\"";
+          bw.write(linea + "\n");
+          System.out.println("Cliente agregado al archivo.");
+
+      } catch (IOException e) {
+          e.printStackTrace();
+      } finally {
+          try {
+              if (bw != null) {
+                  bw.close();
+              }
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
+      }
+     
 }
