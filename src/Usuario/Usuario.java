@@ -10,7 +10,7 @@ package Usuario;
  *
  * @author STEVEN
  */
-public abstract class Usuario {
+public abstract class Usuario{
     protected String nombre;
     protected String apellido;
     protected String user;
