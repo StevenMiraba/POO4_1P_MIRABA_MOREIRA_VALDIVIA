@@ -60,6 +60,59 @@ public Conductor crearConductor(){
       }
       return null;
     } 
+public void ingresarDatosEncomienda(){
+    Scanner sc=new Scanner(System.in);
 
+    System.out.print("Ingrese el origen de su viaje: ");
+    origen =sc.nextLine();
+    System.out.print("Ingrese el destino de su viaje: ");
+    destino=sc.nextLine();
+    System.out.print("Ingrese la fecha: ");
+    fecha=sc.nextLine();  
+    System.out.print("Ingrese la hora: ");
+    hora=sc.nextLine();
+    System.out.print("Ingrese la forma de pago: ");
+    String formaPagoElegida=sc.nextLine().toUpperCase();
+    TipoPago formaPago=TipoPago.valueOf(formaPagoElegida);
+    Pago pago=new Pago(formaPago);
+    System.out.print("Ingrese el tipo de encomienda: ");
+    String tipoEncomiendaelegida=sc.nextLine().toUpperCase();
+    tipo=TipoEncomienda.valueOf(tipoEncomiendaelegida);
+    System.out.print("Ingrese la cantidad del producto: ");
+    cantidad=sc.nextInt();
+    System.out.print("Ingrese el peso(kg): ");
+    peso=sc.nextDouble();
+    double valorPagar=calcularValorPagar();
+    System.out.println("El valor a pagar es: $"+valorPagar);
+    Conductor conductorDisponible=crearConductor();
+    ServicioEncomiendas servicioEncomiendasNuevo=new ServicioEncomiendas( fecha, hora,conductorDisponible, origen, destino, valorPagar,super.numServicio,2316, cantidad, peso,  tipo);
+    super.numServicio++;
+    System.out.println("Servicio de Taxi creado");
+    System.out.println("Usted ha pagado: $"+valorPagar);
+    mostrarInformacion();
 
+    String nombreArchivo="Servicio/encomiendas.txt";
+
+    FileWriter fichero = null;
+    BufferedWriter bw = null;
+
+    try {
+        fichero = new FileWriter(nombreArchivo, true);
+        bw = new BufferedWriter(fichero);
+        String linea = "\"" + numServicio+"\","+tipoEncomiendaelegida + "\"," + cantidad + ",\"" + peso + "\","+valorPagar+"\"";
+        bw.write(linea + "\n");
+        System.out.println("Encomienda agregado al archivo.");
+
+    } catch (IOException e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if (bw != null) {
+                bw.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+      }
+    }
 }
