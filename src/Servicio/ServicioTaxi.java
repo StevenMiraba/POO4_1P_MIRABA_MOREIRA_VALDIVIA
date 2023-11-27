@@ -15,8 +15,8 @@ import java.nio.charset.StandardCharsets;
  */
 public class ServicioTaxi extends Servicio{
     private int numPersonas;
-    public ServicioTaxi(String fecha,String origen,String destino,double valorPagar,String numServicio,int idServicio,int numPersonas){
-        super(fecha,origen,destino,valorPagar,numServicio,idServicio);
+    public ServicioTaxi(String fecha,String hora,String origen,String destino,Conductor conductor,double valorPagar,int numServicio,int idServicio,int numPersonas){
+        super(fecha,hora,conductor,origen,destino,valorPagar,numServicio,idServicio);
         this.numPersonas=numPersonas;
     }
 
