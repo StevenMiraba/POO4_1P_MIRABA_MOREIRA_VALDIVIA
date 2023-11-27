@@ -12,7 +12,7 @@ public class Conductor extends Usuario{
   public Conductor(){
   }
   public Conductor(state estado,Vehiculo vehiculo){
-    this.estado=estado ;
+    this.estado=estado;
     this.vehiculo=vehiculo;
   }
   
