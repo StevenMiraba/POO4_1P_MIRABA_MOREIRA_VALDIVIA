@@ -20,7 +20,10 @@ public abstract class Usuario{
     protected typeUsuario tipoUsuario;
     protected int edad;
     public Usuario(){
-      
+        
+    }
+    public Usuario(String numCedula){
+      this.numCedula=numCedula;
     }
 
     public Usuario(String nombre,String apellido,String user,String contraseña,String numCedula,String numCelular,typeUsuario tipoUsuario,int edad){

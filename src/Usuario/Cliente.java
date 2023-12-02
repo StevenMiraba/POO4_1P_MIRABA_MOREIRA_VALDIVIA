@@ -4,6 +4,7 @@
  */
 package Usuario;
 import Servicio.*;
+import static Usuario.Conductor.LeeConductor;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
@@ -19,8 +20,9 @@ public class Cliente extends Usuario{
        super(nombre,apellido,user,contraseña,numCedula,numCelular,tipoUsuario,edad); 
        this.numTarjCredito=numTarjCredito;
     }
-    public Cliente(){
-        
+    public Cliente(String numCedula,String numTarjCredito){
+        super(numCedula);
+        this.numTarjCredito=numTarjCredito;
     }
  public String getNumTarjCredito(){
       return numTarjCredito;
@@ -57,7 +59,7 @@ public class Cliente extends Usuario{
         return lineas;
     }
  
-    public static void presentarMenu(){
+    public void presentarMenu(){
         System.out.println("/***************MENU***************/");
         System.out.println("/*                                */");
         System.out.println("/**********************************/");
@@ -65,7 +67,7 @@ public class Cliente extends Usuario{
         System.out.println("2. Solicitar entrega encomienda");
         System.out.println("3. Consultar servicios");
     }
-    public static void seleccionarServicio(Cliente cliente){
+    public void seleccionarServicio(Cliente cliente){
         String entrada = "";
         Scanner sc=new Scanner(System.in);
         presentarMenu();
@@ -84,7 +86,7 @@ public class Cliente extends Usuario{
                  
       }
     }
-    public void registrarCliente(String numcedula, int edad, String numTarjCredito){
+    public static void registrarCliente(String numcedula, int edad, String numTarjCredito){
       String nombreArchivo="clientes.txt";
 
       FileWriter fichero = null;
@@ -115,5 +117,4 @@ public class Cliente extends Usuario{
       ArrayList<Servicio> servicios=new ArrayList<>();
 
     }
- 
 }

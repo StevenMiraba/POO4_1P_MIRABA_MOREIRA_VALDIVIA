@@ -6,6 +6,7 @@ import Servicio.Pago;
 import Servicio.Servicio;
 import Usuario.*;
 import static Usuario.Cliente.LeeCliente;
+import static Usuario.Conductor.LeeConductor;
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
@@ -35,15 +36,49 @@ public class Sistema {
         String key1 = sc.nextLine();
         ArrayList<String> Users = obtenerUsuario();
         String sino = "no";
+        Cliente cliente;
+        Conductor conductor;
         for (String user : Users) {
             if (user1.equals(user)) {
                 String tipoUsuario=obtenerTipoUsuario(user);
             if(tipoUsuario.equals("C")){
-                
-                Cliente.seleccionarServicio();
+                ArrayList<String> Lineas= LeeCliente("usuarios.txt");
+                ArrayList<String> Lineas2= LeeCliente("clientes.txt");
+                for(String lineas:Lineas){
+                String[] linea=lineas.split(",");
+                String userExtraido=linea[3];
+                    if(user1.equals(userExtraido)){
+                        String cedulaEx=linea[0];
+                        for(String lineas2:Lineas2){
+                            String[] linea2=lineas2.split(",");
+                            String cedulaEx2=linea2[0];
+                            if(cedulaEx.equals(cedulaEx2)){
+                                String numTC=linea2[2];
+                                cliente = new Cliente(cedulaEx,numTC);
+                        }
+                    }}
+                cliente.seleccionarServicio(cliente);
+                }
             }else if(tipoUsuario.equals("R")){
                 System.out.println("Menu del conductor");
-                cd.seleccionarMenuConductor();
+                ArrayList<String> Lineas= LeeConductor("usuarios.txt");
+                ArrayList<String> Lineas2= LeeConductor("conductores.txt");
+                for(String lineas:Lineas){
+                String[] linea=lineas.split(",");
+                String userExtraido=linea[3];
+                    if(user1.equals(userExtraido)){
+                        String cedulaEx=linea[0];
+                        for(String lineas2:Lineas2){
+                            String[] linea2=lineas2.split(",");
+                            String cedulaEx2=linea2[0];
+                            if(cedulaEx.equals(cedulaEx2)){
+                                String estadoext=linea2[1];
+                                state estado=state.valueOf(estadoext);
+                                conductor=new Conductor(cedulaEx,estado);
+                        }
+                    }}
+                conductor.seleccionarMenuConductor();
+                }
             }
         sino = "si";
 
@@ -62,12 +97,14 @@ public class Sistema {
         System.out.println("R. Conductor ");
         System.out.println("Ingrese su opcion: ");
         String tipoUsuario=sc.nextLine().toUpperCase();
-        cl.registrarCliente(cedula, edad, tarjCredit);
+        Cliente.registrarCliente(cedula, edad, tarjCredit);
         if(tipoUsuario.equals("C")){
-          cl.seleccionarServicio(cl,cd);
+          cliente = new Cliente(cedula,tarjCredit);
+          cliente.seleccionarServicio(cliente);
         }else if(tipoUsuario.equals("R")){
+          conductor=new Conductor(cedula);
           System.out.println("menu del conductor");
-          cd.seleccionarMenuConductor();
+          conductor.seleccionarMenuConductor();
         }
         typeUsuario tipoDeUsuario=typeUsuario.valueOf(tipoUsuario);
       }
