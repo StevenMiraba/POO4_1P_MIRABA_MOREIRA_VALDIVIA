@@ -5,6 +5,7 @@
 import Servicio.Pago;
 import Servicio.Servicio;
 import Usuario.*;
+import static Usuario.Cliente.LeeCliente;
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
@@ -14,7 +15,6 @@ import java.util.Scanner;
 public class Sistema {
     public ArrayList<Usuario> usuarios;
     public ArrayList<Pago> pagos;
-    
     public ArrayList<Servicio> servicios;
     
     public Sistema(ArrayList<Usuario> usuarios,ArrayList<Pago>pagos,ArrayList<Servicio> servicios){
@@ -22,12 +22,9 @@ public class Sistema {
         this.pagos=pagos;
         this.servicios=servicios;
     }
-    public static void iniciarSistema(){
-        
+    public static void iniciarSistema(){ 
     }
     public static void main(String[] args){
-        Cliente cl = new Cliente();
-        Conductor cd=new Conductor();
         System.out.println("+".repeat(31));
         System.out.println("     " + "BIENVENIDO AL SISTEMA" + "     ");
         System.out.println("+".repeat(31));
@@ -36,18 +33,19 @@ public class Sistema {
         String user1 = sc.nextLine();
         System.out.print("CONTRASEÑA: ");
         String key1 = sc.nextLine();
-        ArrayList<String> Users = cl.obtenerUsuario();
+        ArrayList<String> Users = obtenerUsuario();
         String sino = "no";
-      for (String user : Users) {
-        if (user1.equals(user)) {
-          String tipoUsuario=cl.obtenerTipoUsuario(user);
-          if(tipoUsuario.equals("C")){
-            cl.seleccionarServicio(cl,cd);
-          }else if(tipoUsuario.equals("R")){
-             System.out.println("Menu del conductor");
-            cd.seleccionarMenuConductor();
-          }
-          sino = "si";
+        for (String user : Users) {
+            if (user1.equals(user)) {
+                String tipoUsuario=obtenerTipoUsuario(user);
+            if(tipoUsuario.equals("C")){
+                
+                Cliente.seleccionarServicio();
+            }else if(tipoUsuario.equals("R")){
+                System.out.println("Menu del conductor");
+                cd.seleccionarMenuConductor();
+            }
+        sino = "si";
 
         }
       }
@@ -75,6 +73,28 @@ public class Sistema {
       }
       sc.close();
 
+    }
+    public static ArrayList<String> obtenerUsuario(){
+      ArrayList<String> usuarios = new ArrayList<>();
+      ArrayList<String> Lineas= LeeCliente("Usuario/usuarios.txt");
+      for(String linea:Lineas){
+        String[] lineas=linea.split(",");
+        String user1=lineas[3];
+        usuarios.add(user1);
+
+      }
+      return usuarios;
+    }
+    public static String obtenerTipoUsuario(String usuario){
+      ArrayList<String> Lineas= LeeCliente("Usuario/usuarios.txt");
+      String tipoUsuario=null;
+      for(String linea:Lineas){
+        String[] lineas=linea.split(",");
+        if(usuario.equals(lineas[3])){
+          tipoUsuario=lineas[6];    
+        }
+    }
+      return tipoUsuario;
     }
         }
     

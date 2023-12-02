@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 public class Cliente extends Usuario{
     private String numTarjCredito;
     public Cliente(String nombre,String apellido,String user,String contraseña,String numCedula,String numCelular,typeUsuario tipoUsuario,int edad,String numTarjCredito){
-       super(nombre,apellido,user,contraseña,numCedula,numCelular,tipoUsuario,edad);
+       super(nombre,apellido,user,contraseña,numCedula,numCelular,tipoUsuario,edad); 
        this.numTarjCredito=numTarjCredito;
     }
     public Cliente(){
@@ -35,6 +35,7 @@ public class Cliente extends Usuario{
             archivo = new File(nombrearchivo);
             fr = new FileReader(archivo, StandardCharsets.UTF_8);
             br = new BufferedReader(fr);
+            br.readLine();
 
             String linea;
             while ((linea = br.readLine()) != null) {
@@ -55,43 +56,36 @@ public class Cliente extends Usuario{
         }
         return lineas;
     }
-
-    //OBTENER USUARIO
-    public ArrayList<String> obtenerUsuario(){
-      ArrayList<String> usuarios = new ArrayList<>();
-      ArrayList<String> Lineas= LeeCliente("Usuario/usuarios.txt");
-      for(String linea:Lineas){
-        String[] lineas=linea.split(",");
-        String user1=lineas[3];
-        usuarios.add(user1);
-
-      }
-      return usuarios;
-    }
-
-     public String obtenerTipoUsuario(String usuario){
-      ArrayList<String> Lineas= LeeCliente("Usuario/usuarios.txt");
-      String tipoUsuario=null;
-      for(String linea:Lineas){
-        String[] lineas=linea.split(",");
-        if(usuario.equals(lineas[3])){
-          tipoUsuario=lineas[6];    
-        }
-    }
-      return tipoUsuario;
-    }
  
-    public void presentarMenu(){
+    public static void presentarMenu(){
         System.out.println("/***************MENU***************/");
         System.out.println("/*                                */");
         System.out.println("/**********************************/");
         System.out.println("1. Solicitar servicio de taxi");
         System.out.println("2. Solicitar entrega encomienda");
         System.out.println("3. Consultar servicios");
-
+    }
+    public static void seleccionarServicio(Cliente cliente){
+        String entrada = "";
+        Scanner sc=new Scanner(System.in);
+        presentarMenu();
+        ServicioTaxi svt =new ServicioTaxi();
+        ServicioEncomiendas sve=new ServicioEncomiendas();
+        System.out.print("Ingrese opcion: ");
+        entrada = sc.nextLine();
+      switch(entrada){
+          case "1":
+              svt.ingresarDatosTaxi(cliente);//argumento CLIENTE
+              break;
+          case "2":
+              sve.ingresarDatosEncomienda(cliente);
+              break;
+        case "3":
+                 
+      }
     }
     public void registrarCliente(String numcedula, int edad, String numTarjCredito){
-      String nombreArchivo="Usuario/clientes.txt";
+      String nombreArchivo="clientes.txt";
 
       FileWriter fichero = null;
       BufferedWriter bw = null;
@@ -120,27 +114,6 @@ public class Cliente extends Usuario{
     public void consultarServicio(){
       ArrayList<Servicio> servicios=new ArrayList<>();
 
-    }
-public void seleccionarServicio(Cliente cliente,Conductor conductor){
-        String entrada = "";
-        Scanner sc=new Scanner(System.in);
-        ServicioTaxi svt=new ServicioTaxi();
-        ServicioEncomiendas sve=new ServicioEncomiendas();
-      presentarMenu();
-      System.out.print("Ingrese opcion: ");
-      entrada = sc.nextLine();
-      switch(entrada){
-          case "1":
-              svt.ingresarDatosTaxi(cliente);//argumento CLIENTE
-              svt.registrarServicioTaxi(cliente,conductor);//ARGUMENTOS
-              break;
-          case "2":
-              sve.ingresarDatosEncomienda();
-              sve.registrarServicioEncomienda(cliente,conductor);
-              break;
-        case "3":
-                 
-      }
     }
  
 }

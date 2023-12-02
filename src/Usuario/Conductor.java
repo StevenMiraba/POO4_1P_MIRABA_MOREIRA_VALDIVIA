@@ -9,17 +9,17 @@ public class Conductor extends Usuario{
   private String numLicencia;
   private state estado;
   private Vehiculo vehiculo;
-  public Conductor(){
-  }
+  
   public Conductor(state estado,Vehiculo vehiculo){
     this.estado=estado;
     this.vehiculo=vehiculo;
   }
   
-  public Conductor(String numLicencia, state estado, String nombre, String apellido, String numCedula, int edad) {
-      super(nombre, apellido, "", "", numCedula, "", typeUsuario.R, edad);
+  public Conductor(String numLicencia, state estado,Vehiculo vehiculo, String nombre,String apellido,String user,String contraseña,String numCedula,String numCelular,typeUsuario tipoUsuario,int edad) {
+      super(nombre,apellido,user,contraseña,numCedula,numCelular,tipoUsuario,edad);
       this.numLicencia = numLicencia;
       this.estado = estado;
+      this.vehiculo=vehiculo;
   }
 
   public String getNumLicencia() {
@@ -33,7 +33,7 @@ public class Conductor extends Usuario{
   public state getEstado() {
       return estado;
   }
-
+          
 public static ArrayList<String> LeeConductor(String nombrearchivo) {
       ArrayList<String> lineas = new ArrayList<>();
       File archivo = null;
@@ -44,6 +44,7 @@ public static ArrayList<String> LeeConductor(String nombrearchivo) {
           archivo = new File(nombrearchivo);
           fr = new FileReader(archivo, StandardCharsets.UTF_8);
           br = new BufferedReader(fr);
+          br.readLine();
 
           String linea;
           while ((linea = br.readLine()) != null) {
@@ -64,9 +65,9 @@ public static ArrayList<String> LeeConductor(String nombrearchivo) {
       }
       return lineas;
   }
-  public ArrayList<String> obtenerEstado(){
+  public static ArrayList<String> obtenerEstado(){
     ArrayList<String> estados = new ArrayList<>();
-    ArrayList<String> Lineas= LeeConductor("Usuario/conductores.txt");
+    ArrayList<String> Lineas= LeeConductor("conductores.txt");
     for(String linea:Lineas){
       String[] lineas=linea.split(",");
       String estado=lineas[1];
@@ -75,15 +76,15 @@ public static ArrayList<String> LeeConductor(String nombrearchivo) {
     return estados;
     }
   
-  public ArrayList<String> obtenerVehiculo(){
-    ArrayList<String> vehiculos = new ArrayList<>();
-    ArrayList<String> Lineas= LeeConductor("Usuario/vehiculos.txt");
+  public static ArrayList<String> obtenerTipoVehiculo(){
+    ArrayList<String> tipoVehiculos = new ArrayList<>();
+    ArrayList<String> Lineas= LeeConductor("vehiculos.txt");
     for(String linea:Lineas){
       String[] lineas=linea.split(",");
-      String vehiculo=lineas[4];
-      vehiculos.add(vehiculo);
+      String tipo=lineas[4];
+      tipoVehiculos.add(tipo);
       }
-    return vehiculos;
+    return tipoVehiculos;
     }
   public void presentarMenu(){
       System.out.println("/**********MENU CONDUCTOR**********/");

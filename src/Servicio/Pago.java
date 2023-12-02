@@ -45,11 +45,10 @@ public Pago(TipoPago formaPago){
               
                   break;
               default:
-                  //la base es incorrecta retorna -1
                   return "default";
           }
           return formPago;
       }
-      return " ";
+      return null;
   }
 }

@@ -12,6 +12,7 @@ public class Servicio{
     protected String fecha;
     protected String hora;
     protected Conductor conductor;
+    protected Cliente cliente;
     protected String origen;
     protected String destino;
     protected double valorPagar;
@@ -21,10 +22,11 @@ public class Servicio{
         public Servicio(){
     }
     
-    public Servicio(String fecha,String hora,Conductor conductor,String origen,String destino,double valorPagar,int numServicio,int idServicio){
+    public Servicio(String fecha,String hora,Conductor conductor,Cliente cliente,String origen,String destino,double valorPagar,int numServicio,int idServicio){
         this.fecha=fecha;
         this.hora=hora;
         this.conductor=conductor;
+        this.cliente=cliente;
         this.origen=origen;
         this.destino=destino;
         this.valorPagar=valorPagar;
@@ -41,9 +43,4 @@ public class Servicio{
     public void mostrarInformacion(){
       System.out.println("Fecha:" + fecha + "\n Hora" + hora +"\n Desde:" + origen +"\n Hasta:" + destino);                
     }
-    
-    public Conductor crearConductor(){
-      conductor=new Conductor();
-    return conductor;
-  }
 }

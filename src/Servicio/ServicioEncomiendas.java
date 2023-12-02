@@ -12,6 +12,8 @@ import Usuario.TipoVehiculo;
 import java.util.Scanner;
 import java.util.Random;
 import Usuario.*;
+import static Usuario.Conductor.obtenerEstado;
+import static Usuario.Conductor.obtenerTipoVehiculo;
 import java.util.ArrayList;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -25,8 +27,8 @@ private TipoEncomienda tipo;
 public ServicioEncomiendas(){
 }
 
-public ServicioEncomiendas(String fecha,String hora,Conductor conductor,String origen,String destino,double valorPagar,int numServicio,int idServicio,int cantidad, double peso, TipoEncomienda tipo){
-    super(fecha,hora,conductor,origen,destino,valorPagar,numServicio,idServicio);
+public ServicioEncomiendas(String fecha,String hora,Conductor conductor,Cliente cliente,String origen,String destino,double valorPagar,int numServicio,int idServicio,int cantidad, double peso, TipoEncomienda tipo){
+    super(fecha,hora,conductor,cliente,origen,destino,valorPagar,numServicio,idServicio);
     this.cantidad=cantidad;
     this.peso=peso;
     this.tipo=tipo;
@@ -42,28 +44,8 @@ System.out.println("Tipo: Encomienda" + "\n Tipo encomienda: " + tipo +"\n canti
     super.mostrarInformacion();
     }
     
-@Override
-public Conductor crearConductor(){
-    conductor=new Conductor();
-    ArrayList<String> estados=conductor.obtenerEstado();
-    ArrayList<String> vehiculos=conductor.obtenerVehiculo();
-    for(int i=0;i<estados.size();i++){
-        String estado=estados.get(i);
-        String vehiculo=vehiculos.get(i);
-
-    if(estado.equals("D") && vehiculo.equals("M")){
-        state estadoConductor=state.valueOf(estado);
-        TipoVehiculo tipodeVehiculo=TipoVehiculo.valueOf(vehiculo);
-        Vehiculo vehiculoConductor=new Vehiculo(tipodeVehiculo);
-        Conductor conductorDisponibleEncomienda=new Conductor(estadoConductor,vehiculoConductor);
-          return conductorDisponibleEncomienda;
-        }
-      }
-      return null;
-    } 
-public void ingresarDatosEncomienda(){
+public void ingresarDatosEncomienda(Cliente cliente){
     Scanner sc=new Scanner(System.in);
-
     System.out.print("Ingrese el origen de su viaje: ");
     origen =sc.nextLine();
     System.out.print("Ingrese el destino de su viaje: ");
@@ -85,14 +67,15 @@ public void ingresarDatosEncomienda(){
     peso=sc.nextDouble();
     double valorPagar=calcularValorPagar();
     System.out.println("El valor a pagar es: $"+valorPagar);
-    Conductor conductorDisponible=crearConductor();
-    ServicioEncomiendas servicioEncomiendasNuevo=new ServicioEncomiendas( fecha, hora,conductorDisponible, origen, destino, valorPagar,super.numServicio,2316, cantidad, peso,  tipo);
+    Conductor conductorDisponible=conductorDisponibleEncomiendas();
+    ServicioEncomiendas servicioEncomiendasNuevo=new ServicioEncomiendas( fecha, hora,conductorDisponible,cliente, origen, destino, valorPagar,super.numServicio,super.idServicio, cantidad, peso,  tipo);
     super.numServicio++;
+    super.idServicio++;
     System.out.println("Servicio de Taxi creado");
     System.out.println("Usted ha pagado: $"+valorPagar);
     mostrarInformacion();
 
-    String nombreArchivo="Servicio/encomiendas.txt";
+    String nombreArchivo="encomiendas.txt";
 
     FileWriter fichero = null;
     BufferedWriter bw = null;
@@ -115,30 +98,42 @@ public void ingresarDatosEncomienda(){
             e.printStackTrace();
         }
       }
-    }
-public void registrarServicioEncomienda(Cliente cliente,Conductor conductor){
-    String nombreArchivo="Servicio/servicios.txt";
-    Cliente cl=new Cliente();
-    FileWriter fichero = null;
-    BufferedWriter bw = null;
+    String nombreArchivo2="servicios.txt";
+    FileWriter fichero2 = null;
+    BufferedWriter bw2 = null;
 
     try {
-        fichero = new FileWriter(nombreArchivo, true);
-        bw = new BufferedWriter(fichero);
-        String linea = "\"" + super.numServicio + "\"," + "E" +",\""+cliente.getNumCedula()+",\""+conductor.getNombre()+ origen+",\""+destino+",\""+fecha+",\""+hora+",\"" + cl.getNumTarjCredito() + "\"";
-          bw.write(linea + "\n");
+        fichero2 = new FileWriter(nombreArchivo2, true);
+        bw2 = new BufferedWriter(fichero2);
+        String linea = "\"" + super.numServicio + "\"," + "E" +",\""+cliente.getNumCedula()+",\""+conductorDisponible.getNombre()+ origen+",\""+destino+",\""+fecha+",\""+hora+",\"" + cliente.getNumTarjCredito() + "\"";
+          bw2.write(linea + "\n");
           System.out.println("Servicio agregado al archivo.");
 
-      } catch (IOException e) {
-          e.printStackTrace();
+      } catch (IOException e2) {
+          e2.printStackTrace();
       } finally {
           try {
-              if (bw != null) {
-                  bw.close();
+              if (bw2 != null) {
+                  bw2.close();
               }
-          } catch (IOException e) {
-              e.printStackTrace();
+          } catch (IOException e2) {
+              e2.printStackTrace();
           }
       }
     }
+
+  public Conductor conductorDisponibleEncomiendas(){
+      ArrayList<String> estado=Conductor.obtenerEstado();
+      ArrayList<String> tipoVehiculo=Conductor.obtenerTipoVehiculo();
+      for(int i=0;i<estado.size();i++){
+          if(estado.get(i).equals("D") && tipoVehiculo.get(i).equals("M")){
+              state estadoElegido=state.valueOf(estado.get(i));
+              TipoVehiculo tipoElegido=TipoVehiculo.valueOf(tipoVehiculo.get(i));
+              Vehiculo vehiculo=new Vehiculo(tipoElegido);
+              Conductor conductor=new Conductor(estadoElegido,vehiculo);
+              return conductor;
+          }
+      }
+      return null;
+  }
 }
