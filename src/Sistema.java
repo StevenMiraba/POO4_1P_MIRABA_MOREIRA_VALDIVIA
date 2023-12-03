@@ -76,7 +76,7 @@ public class Sistema {
                                 String estadoext=linea2[1];
                                 Estado estado=Estado.valueOf(estadoext);
                                 conductor=new Conductor(cedulaEx,estado);
-                                conductor.seleccionarMenuConductor();
+                                conductor.seleccionarMenuConductor(conductor);
                         }
                     }
                     }
@@ -106,7 +106,7 @@ public class Sistema {
           cliente.seleccionarServicio(cliente);
         }else if(tipoUsuario.equals("R")){
           conductor=new Conductor(cedula);
-          conductor.seleccionarMenuConductor();
+          conductor.seleccionarMenuConductor(conductor);
         }
         typeUsuario tipoDeUsuario=typeUsuario.valueOf(tipoUsuario);
       }

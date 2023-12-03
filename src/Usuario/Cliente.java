@@ -121,10 +121,10 @@ public class Cliente extends Usuario {
       }
      
 }
-   @Override
-   public void consultarServicio(){
-       
-   }
+    @Override
+    public void consultarServicio(){
+        
+    }
     public void consultarServicio(Cliente cliente){
         ArrayList<Servicio> serviciosCliente = new ArrayList<>();
         String cedula = cliente.getNumCedula();
