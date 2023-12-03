@@ -19,10 +19,11 @@ public abstract class Usuario{
     protected String numCelular;
     protected typeUsuario tipoUsuario;
     protected int edad;
-    public Usuario(){
-        
-    }
+    public Usuario(){}
     public Usuario(String numCedula){
+        this.numCedula=numCedula;
+    }
+    public Usuario(String nombre,String numCedula){
       this.numCedula=numCedula;
     }
 

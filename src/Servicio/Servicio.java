@@ -39,6 +39,9 @@ public class Servicio{
         //total=
         return subtotal;
     }
+    public Conductor conductorDisponible(){
+        return null;
+    }
 
     public void mostrarInformacion(){
       System.out.println("Fecha:" + fecha + "\n Hora" + hora +"\n Desde:" + origen +"\n Hasta:" + destino);                

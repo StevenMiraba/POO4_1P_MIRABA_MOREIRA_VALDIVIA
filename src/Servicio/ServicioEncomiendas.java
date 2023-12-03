@@ -67,7 +67,7 @@ public void ingresarDatosEncomienda(Cliente cliente){
     peso=sc.nextDouble();
     double valorPagar=calcularValorPagar();
     System.out.println("El valor a pagar es: $"+valorPagar);
-    Conductor conductorDisponible=conductorDisponibleEncomiendas();
+    Conductor conductorDisponible=conductorDisponible();
     ServicioEncomiendas servicioEncomiendasNuevo=new ServicioEncomiendas( fecha, hora,conductorDisponible,cliente, origen, destino, valorPagar,super.numServicio,super.idServicio, cantidad, peso,  tipo);
     super.numServicio++;
     super.idServicio++;
@@ -122,7 +122,8 @@ public void ingresarDatosEncomienda(Cliente cliente){
       }
     }
 
-  public Conductor conductorDisponibleEncomiendas(){
+    @Override
+    public Conductor conductorDisponible(){
       ArrayList<String> estado=Conductor.obtenerEstado();
       ArrayList<String> tipoVehiculo=Conductor.obtenerTipoVehiculo();
       for(int i=0;i<estado.size();i++){

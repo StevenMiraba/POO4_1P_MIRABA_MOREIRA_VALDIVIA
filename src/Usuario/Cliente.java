@@ -111,9 +111,10 @@ public class Cliente extends Usuario{
       }
      
 }
- @Override
+    @Override
     public void consultarServicio(){
-      ArrayList<Servicio> servicios=new ArrayList<>();
-
+    }
+    public void consultarServicio(Cliente cliente){
+        ArrayList<Servicio> servicios=new ArrayList<>();
     }
 }

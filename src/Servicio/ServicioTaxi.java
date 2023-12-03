@@ -56,7 +56,7 @@ public class ServicioTaxi extends Servicio{
       String confirmarViaje=sc.nextLine();
       ServicioTaxi servicioTaxiNuevo;
       Conductor conductorDisponible;
-        conductorDisponible = conductorDisponibleTaxi();
+        conductorDisponible = conductorDisponible();
       if(confirmarViaje.equals("1")){
         System.out.println("viaje confirmado");
         servicioTaxiNuevo=new ServicioTaxi(fecha,hora,origen,destino,conductorDisponible,cliente,valorPagar,super.numServicio,super.idServicio,numPersonas,distancia);
@@ -127,17 +127,21 @@ public double calcularValorPagar(String numTarjCredito){
     System.out.println("El total a pagar es: $"+valorPagar);
     return valorPagar;
     }
-  public Conductor conductorDisponibleTaxi(){
+
+  @Override
+  public Conductor conductorDisponible(){
       ArrayList<String> estado=Conductor.obtenerEstado();
       ArrayList<String> tipoVehiculo=Conductor.obtenerTipoVehiculo();
+      ArrayList<String> nombres=Conductor.obtenerNombreConductor();
       Estado estadoElegido=null;
       for(int i=0;i<estado.size();i++){
           if(estado.get(i).equals("D") && tipoVehiculo.get(i).equals("A")){
               String estadoCh=estado.get(i);
+              String nombre=nombres.get(i);
               estadoElegido = Estado.valueOf(estadoCh);
               TipoVehiculo tipoElegido=TipoVehiculo.valueOf(tipoVehiculo.get(i));
               Vehiculo vehiculo=new Vehiculo(tipoElegido);
-              Conductor conductor=new Conductor(estadoElegido,vehiculo);
+              Conductor conductor=new Conductor(nombre,estadoElegido,vehiculo);
               return conductor;
           }
       }
