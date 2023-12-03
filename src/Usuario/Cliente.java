@@ -105,42 +105,27 @@ public class Cliente extends Usuario {
         try {
             fichero = new FileWriter(nombreArchivo, true);
             bw = new BufferedWriter(fichero);
-            String linea = "\"" + numcedula + "\"," + edad + ",\"" + numTarjCredito + "\"";
+            String linea = numcedula + "," + edad + "," + numTarjCredito;
             bw.write(linea + "\n");
             System.out.println("Cliente agregado al archivo.");
 
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            try {
+            try{
                 if (bw != null) {
                     bw.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-
+      }}catch (IOException e){
+          e.printStackTrace();
+      }
+      }
+     
+}
+    
     @Override
-    public void consultarServicio() {
-        ArrayList<String> serviciosCliente = new ArrayList<>();
-        ArrayList<String> Lineas = LeeConductor("servicios.txt");
-        for (String linea : Lineas) {
-            String[] lineas = linea.split(",");
-            String Tipo = lineas[1];
-            if (Tipo.equals("T")) {
-                //int num = Integer.parseInt(lineas[0]);
-                Servicio serTNew = new ServicioTaxi(lineas[6], lineas[7], lineas[4], lineas[5], 2, 2);
-
-            } else if (Tipo.equals("E")) {
-                //int num2 = Integer.parseInt(lineas[0]);
-                Servicio serENew = new ServicioEncomiendas(lineas[6], lineas[7], lineas[4], lineas[5], 3, 2);
-            }
-        }
+    public void consultarServicio(){
+        
     }
-
     public void consultarServicio(Cliente cliente) {
         ArrayList<Servicio> serviciosCliente = new ArrayList<>();
         String cedula = cliente.getNumCedula();
@@ -148,7 +133,7 @@ public class Cliente extends Usuario {
         for (String linea : Lineas) {
             String[] lineas = linea.split(",");
             String Tipo = lineas[1];
-            if (Tipo.equals("T") && cedula.equals(lineas[2])) {
+            if(Tipo.equals("T") && cedula.equals(lineas[2])) {
                 int num = Integer.parseInt(lineas[0]);
                 Servicio serTNew = new ServicioTaxi(lineas[6], lineas[7], lineas[4], lineas[5], num, 2);
                 serviciosCliente.add(serTNew);
@@ -168,8 +153,7 @@ public class Cliente extends Usuario {
                         + "\n Hora: " + serT.getHora()
                         + "\n Desde: " + serT.getOrigen()
                         + "\n Hasta: " + serT.getDestino());
-            }
-            if (ser instanceof ServicioEncomiendas) {
+            }else if (ser instanceof ServicioEncomiendas) {
                 ServicioEncomiendas serE = (ServicioEncomiendas) ser;
                 System.out.println("/*************************************/");
                 System.out.println("Tipo: Encomienda"
@@ -179,9 +163,8 @@ public class Cliente extends Usuario {
                         + "\n Hora: " + serE.getHora()
                         + "\n Desde: " + serE.getOrigen()
                         + "\n Hasta: " + serE.getDestino());
-            }
-
-        }
+}
     }
 
+}
 }
