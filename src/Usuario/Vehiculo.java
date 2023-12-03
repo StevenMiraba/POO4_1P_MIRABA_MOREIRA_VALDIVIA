@@ -70,7 +70,6 @@ this.codigoVehiculo=codigoVehiculo;
 
         String linea;
         while ((linea = br.readLine()) != null) {
-            System.out.println(linea);
             lineas.add(linea);
         }
 
