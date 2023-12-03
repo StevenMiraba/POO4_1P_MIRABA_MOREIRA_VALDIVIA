@@ -19,7 +19,14 @@ public class Servicio{
     protected static int numServicio=1;
     protected static int idServicio=1;
 
-        public Servicio(){
+    public Servicio(){}
+    
+    public Servicio(String fecha,String hora,String origen,String destino,int numServicio){
+        this.fecha=fecha;
+        this.hora=hora;
+        this.origen=origen;
+        this.destino=destino;
+        this.numServicio=numServicio;
     }
     
     public Servicio(String fecha,String hora,Conductor conductor,Cliente cliente,String origen,String destino,double valorPagar,int numServicio,int idServicio){
@@ -30,8 +37,21 @@ public class Servicio{
         this.origen=origen;
         this.destino=destino;
         this.valorPagar=valorPagar;
-        this.numServicio=numServicio;
-        this.idServicio=idServicio;
+    }
+    public Conductor getConductor(){
+        return conductor;
+    }
+    public String getFecha(){
+        return fecha;
+    }
+    public String getHora(){
+        return hora;
+    }
+    public String getDestino(){
+        return destino;
+    }
+    public String getOrigen(){
+        return origen;
     }
     
     public double calcularValorPagar(){

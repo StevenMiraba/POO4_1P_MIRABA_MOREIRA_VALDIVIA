@@ -111,7 +111,6 @@ public class Sistema {
         typeUsuario tipoDeUsuario=typeUsuario.valueOf(tipoUsuario);
       }
       sc.close();
-
     }
     public static ArrayList<String> obtenerUsuario(){
       ArrayList<String> usuarios = new ArrayList<>();

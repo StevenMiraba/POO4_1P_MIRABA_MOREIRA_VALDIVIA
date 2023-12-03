@@ -22,10 +22,19 @@ public class ServicioTaxi extends Servicio{
     public ServicioTaxi(){
         
     }
+    public ServicioTaxi(String fecha,String hora,String origen,String destino,int numServicio,int numPersonas){
+        super(fecha,hora,origen,destino,numServicio);
+        this.numPersonas=numPersonas;
+    }
     public ServicioTaxi(String fecha,String hora,String origen,String destino,Conductor conductor,Cliente cliente,double valorPagar,int numServicio,int idServicio,int numPersonas,int distancia){
         super(fecha,hora,conductor,cliente,origen,destino,valorPagar,numServicio,idServicio);
         this.numPersonas=numPersonas;
         this.distancia=distancia;
+        super.numServicio++;
+        super.idServicio++;
+    }
+    public int getNumPersonas(){
+        return numPersonas;
     }
 
   public void ingresarDatosTaxi(Cliente cliente){
@@ -44,9 +53,9 @@ public class ServicioTaxi extends Servicio{
     System.out.println("Ingrese el numero de personas que viajan: ");
     numPersonas = sc.nextInt();
     sc.nextLine();
-    
     Pago pago=new Pago(formaPago);
     String comprobar=pago.calcularCosto();
+    ServicioTaxi servicioTaxiNuevo=null;
     if(formaPagoElegida.equals(comprobar)){
         valorPagar=calcularValorPagar();
       }else if(formaPagoElegida.equals(comprobar)){
@@ -54,14 +63,10 @@ public class ServicioTaxi extends Servicio{
       }
       System.out.println("Desea confirmar su viaje?:"+ "\n 1. Si" + "\n 2. No");
       String confirmarViaje=sc.nextLine();
-      ServicioTaxi servicioTaxiNuevo;
-      Conductor conductorDisponible;
-        conductorDisponible = conductorDisponible();
+        conductor = conductorDisponible();
       if(confirmarViaje.equals("1")){
         System.out.println("viaje confirmado");
-        servicioTaxiNuevo=new ServicioTaxi(fecha,hora,origen,destino,conductorDisponible,cliente,valorPagar,super.numServicio,super.idServicio,numPersonas,distancia);
-        super.numServicio++;
-        super.idServicio++;
+        servicioTaxiNuevo=new ServicioTaxi(fecha,hora,origen,destino,conductor,cliente,valorPagar,numServicio,idServicio,numPersonas,distancia);
         System.out.println("Servicio de Taxi creado");
         System.out.println("Usted ha pagado: $"+servicioTaxiNuevo.valorPagar);
               }else if(confirmarViaje.equals("2")){
@@ -74,7 +79,7 @@ public class ServicioTaxi extends Servicio{
         try {
             fichero = new FileWriter(nombreArchivo, true);
             bw = new BufferedWriter(fichero);
-            String linea = "\"" + super.numServicio+"\","+numPersonas + "\"," + distancia + ",\"" +valorPagar+"\"";
+            String linea = numServicio+","+numPersonas + "," + distancia + "," +valorPagar;
             bw.write(linea + "\n");
             System.out.println("Servicio de Taxi agregado al archivo.");
         } catch (IOException e) {
@@ -94,7 +99,7 @@ public class ServicioTaxi extends Servicio{
     try {
         fichero2 = new FileWriter(nombreArchivo2, true);
         bw2 = new BufferedWriter(fichero2);
-        String linea = "\"" + super.numServicio + "\"," + "T" +",\""+cliente.getNumCedula()+",\""+conductorDisponible.getNombre()+ origen+",\""+destino+",\""+fecha+",\""+hora+",\"" + cliente.getNumTarjCredito() + "\"";
+        String linea = numServicio + "," + "T" +","+cliente.getNumCedula()+","+conductor.getNombre()+","+ origen+","+destino+","+fecha+","+hora+"," + cliente.getNumTarjCredito();
         bw2.write(linea + "\n");
         } catch (IOException e2) {
             e2.printStackTrace();
@@ -141,8 +146,8 @@ public double calcularValorPagar(String numTarjCredito){
               estadoElegido = Estado.valueOf(estadoCh);
               TipoVehiculo tipoElegido=TipoVehiculo.valueOf(tipoVehiculo.get(i));
               Vehiculo vehiculo=new Vehiculo(tipoElegido);
-              Conductor conductor=new Conductor(nombre,estadoElegido,vehiculo);
-              return conductor;
+              Conductor conductornew=new Conductor(nombre,estadoElegido,vehiculo);
+              return conductornew;
           }
       }
       return null;

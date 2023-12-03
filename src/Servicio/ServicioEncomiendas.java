@@ -26,13 +26,25 @@ private TipoEncomienda tipo;
 
 public ServicioEncomiendas(){
 }
+public ServicioEncomiendas(String fecha,String hora,String origen,String destino,int numServicio,int cantidad){
+        super(fecha,hora,origen,destino,numServicio);
+        this.cantidad=cantidad;
+    }
 
 public ServicioEncomiendas(String fecha,String hora,Conductor conductor,Cliente cliente,String origen,String destino,double valorPagar,int numServicio,int idServicio,int cantidad, double peso, TipoEncomienda tipo){
     super(fecha,hora,conductor,cliente,origen,destino,valorPagar,numServicio,idServicio);
     this.cantidad=cantidad;
     this.peso=peso;
     this.tipo=tipo;
+    super.numServicio++;
+    super.idServicio++;
   }
+    public int getCantidad(){
+        return cantidad;
+    }
+    public TipoEncomienda getTipo(){
+        return tipo;
+    }
 @Override
 public double calcularValorPagar(){
     valorPagar= 4+cantidad;
@@ -67,10 +79,9 @@ public void ingresarDatosEncomienda(Cliente cliente){
     peso=sc.nextDouble();
     double valorPagar=calcularValorPagar();
     System.out.println("El valor a pagar es: $"+valorPagar);
-    Conductor conductorDisponible=conductorDisponible();
-    ServicioEncomiendas servicioEncomiendasNuevo=new ServicioEncomiendas( fecha, hora,conductorDisponible,cliente, origen, destino, valorPagar,super.numServicio,super.idServicio, cantidad, peso,  tipo);
-    super.numServicio++;
-    super.idServicio++;
+    conductor=conductorDisponible();
+    ServicioEncomiendas servicioEncomiendasNuevo=new ServicioEncomiendas( fecha, hora,conductor,cliente, origen, destino, valorPagar,numServicio,idServicio, cantidad, peso,  tipo);
+
     System.out.println("Servicio de Taxi creado");
     System.out.println("Usted ha pagado: $"+valorPagar);
     mostrarInformacion();
@@ -83,7 +94,7 @@ public void ingresarDatosEncomienda(Cliente cliente){
     try {
         fichero = new FileWriter(nombreArchivo, true);
         bw = new BufferedWriter(fichero);
-        String linea = "\"" + numServicio+"\","+tipoEncomiendaelegida + "\"," + cantidad + ",\"" + peso + "\","+valorPagar+"\"";
+        String linea = numServicio+","+tipoEncomiendaelegida + "," + cantidad + "," + peso + ","+valorPagar;
         bw.write(linea + "\n");
         System.out.println("Encomienda agregado al archivo.");
 
@@ -105,7 +116,7 @@ public void ingresarDatosEncomienda(Cliente cliente){
     try {
         fichero2 = new FileWriter(nombreArchivo2, true);
         bw2 = new BufferedWriter(fichero2);
-        String linea = "\"" + super.numServicio + "\"," + "E" +",\""+cliente.getNumCedula()+",\""+conductorDisponible.getNombre()+ origen+",\""+destino+",\""+fecha+",\""+hora+",\"" + cliente.getNumTarjCredito() + "\"";
+        String linea = numServicio + "," + "E" +","+cliente.getNumCedula()+","+conductor.getNombre()+","+ origen+","+destino+","+fecha+","+hora+"," + cliente.getNumTarjCredito();
           bw2.write(linea + "\n");
           System.out.println("Servicio agregado al archivo.");
 
@@ -133,8 +144,8 @@ public void ingresarDatosEncomienda(Cliente cliente){
               String nombre=nombres.get(0);
               TipoVehiculo tipoElegido=TipoVehiculo.valueOf(tipoVehiculo.get(i));
               Vehiculo vehiculo=new Vehiculo(tipoElegido);
-              Conductor conductor=new Conductor(nombre,estadoElegido,vehiculo);
-              return conductor;
+              Conductor conductornew=new Conductor(nombre,estadoElegido,vehiculo);
+              return conductornew;
           }
       }
       return null;
