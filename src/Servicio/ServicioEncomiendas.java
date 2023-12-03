@@ -130,7 +130,7 @@ public void ingresarDatosEncomienda(Cliente cliente){
       for(int i=0;i<estado.size();i++){
           if(estado.get(i).equals("D") && tipoVehiculo.get(i).equals("M")){
               Estado estadoElegido=Estado.valueOf(estado.get(i));
-              String nombre=nombres.get(i);
+              String nombre=nombres.get(0);
               TipoVehiculo tipoElegido=TipoVehiculo.valueOf(tipoVehiculo.get(i));
               Vehiculo vehiculo=new Vehiculo(tipoElegido);
               Conductor conductor=new Conductor(nombre,estadoElegido,vehiculo);

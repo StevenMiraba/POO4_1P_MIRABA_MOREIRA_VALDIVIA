@@ -137,7 +137,7 @@ public double calcularValorPagar(String numTarjCredito){
       for(int i=0;i<estado.size();i++){
           if(estado.get(i).equals("D") && tipoVehiculo.get(i).equals("A")){
               String estadoCh=estado.get(i);
-              String nombre=nombres.get(i);
+              String nombre=nombres.get(0);
               estadoElegido = Estado.valueOf(estadoCh);
               TipoVehiculo tipoElegido=TipoVehiculo.valueOf(tipoVehiculo.get(i));
               Vehiculo vehiculo=new Vehiculo(tipoElegido);
