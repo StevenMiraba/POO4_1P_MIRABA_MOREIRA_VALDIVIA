@@ -52,7 +52,6 @@ public static ArrayList<String> LeeConductor(String nombrearchivo) {
 
           String linea;
           while ((linea = br.readLine()) != null) {
-              System.out.println(linea);
               lineas.add(linea);
           }
 
@@ -109,7 +108,7 @@ public static ArrayList<String> LeeConductor(String nombrearchivo) {
               consultarServicio();
             break;
         case "2": //2. Datos de su vehículo
-            datosVehiculo();
+                datosVehiculo();
             break;
       
 
