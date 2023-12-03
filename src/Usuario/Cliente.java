@@ -115,6 +115,26 @@ public class Cliente extends Usuario{
     public void consultarServicio(){
         //crear arreglo de servicio, leer fichero "servicios", ir creando los servicios y añadir a la lista
         //luego hacer 
+     
+        ArrayList<String> serviciosCliente=new ArrayList<>();
+        ArrayList<String> Lineas = LeeConductor("servicios.txt");
+        for(String linea:Lineas){
+            String[] lineas=linea.split(",");
+            
+            
+            serviciosCliente.add("Tipo:"+lineas[1]);
+            serviciosCliente.add("Fecha:"+lineas[6]);
+            serviciosCliente.add("Hora:"+lineas[7]);
+            serviciosCliente.add("Desde:"+lineas[4]);
+            serviciosCliente.add("Hasta:"+lineas[5]);
+            serviciosCliente.add("/*************************************/");
+        }
+        
+        System.out.println("/*************************************/");
+        for (String info : serviciosCliente) {
+            System.out.println(info);
+            
+    }
     }
     public void consultarServicio(Cliente cliente){
         String cedula=cliente.getNumCedula();
