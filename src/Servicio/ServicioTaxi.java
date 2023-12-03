@@ -69,11 +69,7 @@ public class ServicioTaxi extends Servicio{
         servicioTaxiNuevo=new ServicioTaxi(fecha,hora,origen,destino,conductor,cliente,valorPagar,numServicio,idServicio,numPersonas,distancia);
         System.out.println("Servicio de Taxi creado");
         System.out.println("Usted ha pagado: $"+servicioTaxiNuevo.valorPagar);
-              }else if(confirmarViaje.equals("2")){
-        System.out.println("viaje rechazado, será redireccionado al menú principal");
-        //cliente.seleccionarServicio(cliente,conductorDisponible);
-      }
-      String nombreArchivo="viajes.txt";
+        String nombreArchivo="viajes.txt";
         FileWriter fichero = null;
         BufferedWriter bw = null;
         try {
@@ -111,7 +107,11 @@ public class ServicioTaxi extends Servicio{
             } catch (IOException e2) {
                 e2.printStackTrace();
             }
-        }
+        }     
+      }else if(confirmarViaje.equals("2")){
+        System.out.println("viaje rechazado, será redireccionado al menú principal");
+        cliente.seleccionarServicio(cliente);
+      }
       }
 
 @Override
