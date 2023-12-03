@@ -40,7 +40,7 @@ public class Sistema {
         Conductor conductor=null;
         for (String user : Users) {
             if (user1.equals(user)) {
-                String tipoUsuario=obtenerTipoUsuario(user);
+                String tipoUsuario=obtenerTipoUsuario(user1);
             if(tipoUsuario.equals("C")){
                 ArrayList<String> Lineas= LeeCliente("usuarios.txt");
                 ArrayList<String> Lineas2= LeeCliente("clientes.txt");
@@ -55,12 +55,13 @@ public class Sistema {
                             if(cedulaEx.equals(cedulaEx2)){
                                 String numTC=linea2[2];
                                 cliente = new Cliente(cedulaEx,numTC);
+                                cliente.seleccionarServicio(cliente);
                         }
-                    }}
-                cliente.seleccionarServicio(cliente);
+                    }
+                    }
+                
                 }
             }else if(tipoUsuario.equals("R")){
-                System.out.println("Menu del conductor");
                 ArrayList<String> Lineas= LeeConductor("usuarios.txt");
                 ArrayList<String> Lineas2= LeeConductor("conductores.txt");
                 for(String lineas:Lineas){
@@ -75,9 +76,11 @@ public class Sistema {
                                 String estadoext=linea2[1];
                                 Estado estado=Estado.valueOf(estadoext);
                                 conductor=new Conductor(cedulaEx,estado);
+                                conductor.seleccionarMenuConductor();
                         }
-                    }}
-                conductor.seleccionarMenuConductor();
+                    }
+                    }
+                
                 }
             }
         sino = "si";
@@ -103,7 +106,6 @@ public class Sistema {
           cliente.seleccionarServicio(cliente);
         }else if(tipoUsuario.equals("R")){
           conductor=new Conductor(cedula);
-          System.out.println("menu del conductor");
           conductor.seleccionarMenuConductor();
         }
         typeUsuario tipoDeUsuario=typeUsuario.valueOf(tipoUsuario);
