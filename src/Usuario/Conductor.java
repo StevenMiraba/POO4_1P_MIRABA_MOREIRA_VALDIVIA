@@ -9,8 +9,8 @@ public class Conductor extends Usuario{
   private String numLicencia;
   private Estado estado;
   private Vehiculo vehiculo;
-  public Conductor(String numCedula,Estado estado){
-      super(numCedula);
+  public Conductor(String nombre,String numCedula,Estado estado){
+      super(nombre,numCedula);
       this.estado=estado;
   }
     public Conductor(String numCedula){
@@ -49,6 +49,7 @@ public static ArrayList<String> LeeConductor(String nombrearchivo) {
           archivo = new File(nombrearchivo);
           fr = new FileReader(archivo, StandardCharsets.UTF_8);
           br = new BufferedReader(fr);
+          br.readLine();
 
           String linea;
           while ((linea = br.readLine()) != null) {
@@ -89,6 +90,21 @@ public static ArrayList<String> LeeConductor(String nombrearchivo) {
       }
     return vehiculos;
     }
+  
+  public static ArrayList<String> obtenerNombreConductor(){
+    ArrayList<String> nombresConductor = new ArrayList<>();
+    ArrayList<String> Lineas= LeeConductor("usuarios.txt");
+    for(String linea:Lineas){
+      String[] lineas=linea.split(",");
+      String tipoUser=lineas[6];
+      if(tipoUser.equals("R")){
+          String nombreConductor=lineas[1];
+          nombresConductor.add(nombreConductor);
+      }
+    }
+    return nombresConductor;
+    }
+  
   public void presentarMenu(){
       System.out.println("/**********MENU CONDUCTOR**********/");
       System.out.println("/*                                */");
