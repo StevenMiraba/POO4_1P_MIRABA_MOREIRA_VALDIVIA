@@ -114,7 +114,7 @@ public static ArrayList<String> LeeConductor(String nombrearchivo) {
       System.out.println("2. Datos de su vehículo");
   }
   
-  public void seleccionarMenuConductor(){
+  public void seleccionarMenuConductor(Conductor conductor){
     String entrada = "";
     Scanner sc=new Scanner(System.in);
     presentarMenu();
@@ -122,66 +122,89 @@ public static ArrayList<String> LeeConductor(String nombrearchivo) {
     entrada = sc.nextLine();
     switch(entrada){
         case "1": //1. Consultar Servicio Asignado
-              consultarServicio();
+              consultarServicio(conductor);
             break;
         case "2": //2. Datos de su vehículo
-                datosVehiculo();
+                datosVehiculo(conductor);
             break;
       
 
     }
   }
-  public void datosVehiculo(){
+  public void datosVehiculo(Conductor conductor){
     System.out.println("/***********Datos Vehiculo************/");
     System.out.println("/*                                   */");
     System.out.println("/*************************************/");
+    ArrayList<Servicio> serviciosCliente = new ArrayList<>();
+        String cedula = conductor.getNumCedula();
+        ArrayList<String> Lineas = LeeConductor("conductores.txt");
+        ArrayList<String> Lineas2 = LeeConductor("vehiculos.txt");
+        for (String linea : Lineas) {
+            String[] lineas = linea.split(",");
+            String cedulaExt = lineas[0];
+            if(cedula.equals(cedulaExt)){
+                String codVehiculo=lineas[2];
+                for (String linea2 : Lineas2){
+                    String[] lineas2 = linea2.split(",");
+                    String codVehiculoExt = lineas2[0];
+                    if(codVehiculo.equals(codVehiculoExt)){
+                        System.out.println("/*************************************/");
+                System.out.println("Tipo Vehiculo: "+lineas2[4]
+                                    + "\n placa: " + lineas2[1]
+                                    + "\n modelo: " + lineas2[2]
+                                    + "\n marca: " + lineas2[3]);
+                    }
+                }
+}
+    }
 
-    ArrayList<String> placa=new ArrayList<>();
-    ArrayList<String> modelo=new ArrayList<>();
-    ArrayList<String> marca=new ArrayList<>();
-    
-    ArrayList<String> Lineas= LeeConductor("vehiculos.txt");
-    for(String linea:Lineas){
-      String[] lineas=linea.split(",");
-      placa.add(lineas[1]);
-      modelo.add(lineas[2]);
-      marca.add(lineas[3]);
-      for(int i=0;i<placa.size();i++){
-        System.out.println("/*************************************/");
-        System.out.println("placa: "+placa.get(i)+
-                          "\n modelo: "+modelo.get(i)+
-                          "\n marca: "+marca.get(i));
-      }
+  }
+    @Override
+    public void consultarServicio(){
         
-  }
-  }
- @Override
-  public void consultarServicio(){
-      System.out.println("/**********SERVICIO ASIGNADO**********/");
-      System.out.println("/*                                   */");
-      System.out.println("/*************************************/");
-    ArrayList<String> tipoServicios=new ArrayList<>();
-    ArrayList<String> fechas=new ArrayList<>();
-    ArrayList<String> horas=new ArrayList<>();
-    ArrayList<String> origenes=new ArrayList<>();
-    ArrayList<String> destinos=new ArrayList<>();
-      ArrayList<String> Lineas= LeeConductor("servicios.txt");
-      for(String linea:Lineas){
-        String[] lineas=linea.split(",");
-        tipoServicios.add(lineas[1]);
-        fechas.add(lineas[6]);
-        horas.add(lineas[7]);
-        origenes.add(lineas[4]);
-        destinos.add(lineas[5]);
-      }
-      for(int i=0;i<fechas.size();i++){
-        System.out.println("/*************************************/");
-        System.out.println("Tipo: "+tipoServicios.get(i)+
-                          "\n Fecha: "+fechas.get(i)+
-                          "\n Hora: "+horas.get(i)+
-                          "\n Desde: "+origenes.get(i)+
-                          "\n Hasta: "+destinos.get(i));
-      }
+    }
+    public void consultarServicio(Conductor conductor){
+        System.out.println("/***********SERVICIO ASIGNADO************/");
+        System.out.println("/*                                      */");
+        System.out.println("/****************************************/");
+        ArrayList<Servicio> serviciosCliente = new ArrayList<>();
+        String cedula = conductor.getNumCedula();
+        ArrayList<String> Lineas = LeeConductor("servicios.txt");
+        for (String linea : Lineas) {
+            String[] lineas = linea.split(",");
+            String Tipo = lineas[1];
+            if(Tipo.equals("T") && cedula.equals(lineas[2])) {
+                int num = Integer.parseInt(lineas[0]);
+                Servicio serTNew = new ServicioTaxi(lineas[6], lineas[7], lineas[4], lineas[5], num, 2);
+                serviciosCliente.add(serTNew);
+            } else if (Tipo.equals("E") && cedula.equals(lineas[2])) {
+                int num2 = Integer.parseInt(lineas[0]);
+                Servicio serENew = new ServicioEncomiendas(lineas[6], lineas[7], lineas[4], lineas[5], num2, 2);
+                serviciosCliente.add(serENew);
+            }
+        }
+        for (Servicio ser : serviciosCliente) {
+            if (ser instanceof ServicioTaxi) {
+                ServicioTaxi serT = (ServicioTaxi) ser;
+                System.out.println("/*************************************/");
+                System.out.println("Tipo: Servicio Taxi"
+                        + "\n Cantidad pasajeros: " + serT.getNumPersonas()
+                        + "\n Fecha: " + serT.getFecha()
+                        + "\n Hora: " + serT.getHora()
+                        + "\n Desde: " + serT.getOrigen()
+                        + "\n Hasta: " + serT.getDestino());
+            }else if (ser instanceof ServicioEncomiendas) {
+                ServicioEncomiendas serE = (ServicioEncomiendas) ser;
+                System.out.println("/*************************************/");
+                System.out.println("Tipo: Servicio Encomienda"
+                        + "\n Tipo encomienda: " + serE.getTipo()
+                        + "\n Cantidad: " + serE.getCantidad()
+                        + "\n Fecha: " + serE.getFecha()
+                        + "\n Hora: " + serE.getHora()
+                        + "\n Desde: " + serE.getOrigen()
+                        + "\n Hasta: " + serE.getDestino());
+}
+    }
       
   }
     
