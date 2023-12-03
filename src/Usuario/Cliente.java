@@ -113,9 +113,37 @@ public class Cliente extends Usuario{
 }
     @Override
     public void consultarServicio(){
+        //crear arreglo de servicio, leer fichero "servicios", ir creando los servicios y añadir a la lista
+        //luego hacer 
     }
     public void consultarServicio(Cliente cliente){
-        ArrayList<Servicio> servicios=new ArrayList<>();
+        String cedula=cliente.getNumCedula();
+        ArrayList<String> tipoServicios=new ArrayList<>();
+        ArrayList<String> fechas=new ArrayList<>();
+        ArrayList<String> horas=new ArrayList<>();
+        ArrayList<String> origenes=new ArrayList<>();
+        ArrayList<String> destinos=new ArrayList<>();
+        ArrayList<String> Lineas= LeeConductor("servicios.txt");
+        
+        for(String linea:Lineas){
+            String[] lineas=linea.split(",");
+            String cedulaEnArchivo=lineas[2];
+            if(cedula.equals(cedulaEnArchivo)){
+                tipoServicios.add(lineas[1]);
+                fechas.add(lineas[6]);
+                horas.add(lineas[7]);
+                origenes.add(lineas[4]);
+                destinos.add(lineas[5]);
+                }
+            }
+        for(int i=0;i<fechas.size();i++){
+            System.out.println("/*************************************/");
+            System.out.println("Tipo: "+tipoServicios.get(i)+
+                                "\n Fecha: "+fechas.get(i)+
+                                "\n Hora: "+horas.get(i)+
+                                "\n Desde: "+origenes.get(i)+
+                                "\n Hasta: "+destinos.get(i));
+      } 
         
     }
 }
