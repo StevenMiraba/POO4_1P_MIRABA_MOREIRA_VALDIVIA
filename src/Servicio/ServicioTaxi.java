@@ -20,6 +20,7 @@ public class ServicioTaxi extends Servicio{
     private int numPersonas;
     private int distancia;
     private static final double costoPorKm=0.50;
+    private double subtotal;
     public ServicioTaxi(){
         
     }
@@ -60,6 +61,7 @@ public class ServicioTaxi extends Servicio{
     Pago pago=new Pago(formaPago);
     String comprobar=pago.calcularCosto();
     ServicioTaxi servicioTaxiNuevo=null;
+    Pago pagoNuevo=null;
     if(formaPagoElegida.equals(comprobar)){
         valorPagar=calcularValorPagar();
       }else if(formaPagoElegida.equals(comprobar)){
@@ -73,12 +75,10 @@ public class ServicioTaxi extends Servicio{
         //Crear nuevo servicio taxi
         servicioTaxiNuevo=new ServicioTaxi(fecha,hora,origen,destino,conductor,cliente,valorPagar,numServicio,idServicio,numPersonas,distancia);
         //Crear nuevo pago
-        Pago pagoNuevo=new Pago(Pago.ID_Pago,fecha,idServicio,formaPago,valorPagar);
-        
-        
-        
+        pagoNuevo=new Pago(Pago.ID_Pago,fecha,idServicio,formaPago,valorPagar);      
         System.out.println("Servicio de Taxi creado");
         System.out.println("Usted ha pagado: $"+servicioTaxiNuevo.valorPagar);
+        
         String nombreArchivo="viajes.txt";
         FileWriter fichero = null;
         BufferedWriter bw = null;
@@ -122,21 +122,42 @@ public class ServicioTaxi extends Servicio{
         System.out.println("viaje rechazado, será redireccionado al menú principal");
         cliente.seleccionarServicio(cliente);
       }
+      String nombreArchivo3="pagos.txt";
+        FileWriter fichero3 = null;
+        BufferedWriter bw3 = null;
+        try {
+            fichero3 = new FileWriter(nombreArchivo3, true);
+            bw3 = new BufferedWriter(fichero3);
+            String linea = pagoNuevo.getID_Pago()+","+pagoNuevo.getFechaPago() + "," + pagoNuevo.getNumServicio() + "," +pagoNuevo.getFormaPago()+"," +cliente.getNumCedula()+"," +subtotal+"," +pagoNuevo.getValorPagar();
+            bw3.write(linea + "\n");
+            System.out.println("Pago agregado al archivo.");
+        } catch (IOException e3) {
+            e3.printStackTrace();
+        } finally {
+            try {
+                if (bw3 != null) {
+                    bw3.close();
+                }
+            } catch (IOException e3) {
+                e3.printStackTrace();
+            }
+        }
       }
 
 @Override
 public double calcularValorPagar(){
     Random rd=new Random();
     distancia =rd.nextInt(41)+5;
-    double valorPagar=distancia*costoPorKm;
-    System.out.println("El subtotal a pagar es: $"+valorPagar);
+    subtotal=distancia*costoPorKm;
+    valorPagar=distancia*costoPorKm;
+    System.out.println("El subtotal a pagar es: $"+subtotal);
     System.out.println("El total a pagar es: $"+valorPagar);
     return valorPagar;
     }
 
 public double calcularValorPagar(String numTarjCredito){
-    double valorPagar=calcularValorPagar();
-    System.out.println("El subtotal a pagar es: $"+valorPagar);
+    subtotal=calcularValorPagar();
+    System.out.println("El subtotal a pagar es: $"+subtotal);
     valorPagar=(calcularValorPagar()*1.10);
     System.out.println("El total a pagar es: $"+valorPagar);
     return valorPagar;

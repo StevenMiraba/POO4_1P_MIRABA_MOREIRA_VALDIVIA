@@ -22,6 +22,7 @@ public class ServicioEncomiendas extends Servicio{
 private int cantidad;
 private double peso;
 private TipoEncomienda tipo;
+private double subtotal;
 
 
 public ServicioEncomiendas(){
@@ -45,8 +46,12 @@ public ServicioEncomiendas(String fecha,String hora,Conductor conductor,Cliente 
     public TipoEncomienda getTipo(){
         return tipo;
     }
+    public double getPeso(){
+        return peso;
+    }
 @Override
 public double calcularValorPagar(){
+    subtotal=4+cantidad;
     valorPagar= 4+cantidad;
     return valorPagar;
     }
@@ -77,11 +82,13 @@ public void ingresarDatosEncomienda(Cliente cliente){
     cantidad=sc.nextInt();
     System.out.print("Ingrese el peso(kg): ");
     peso=sc.nextDouble();
-    double valorPagar=calcularValorPagar();
+    valorPagar=calcularValorPagar();
     System.out.println("El valor a pagar es: $"+valorPagar);
     conductor=conductorDisponible();
+    //Crear nuevo servicio encomiendas
     ServicioEncomiendas servicioEncomiendasNuevo=new ServicioEncomiendas( fecha, hora,conductor,cliente, origen, destino, valorPagar,numServicio,idServicio, cantidad, peso,  tipo);
-
+    //Crear nuevo pago
+    Pago pagoNuevo=new Pago(Pago.ID_Pago,fecha,idServicio,formaPago,valorPagar);
     System.out.println("Servicio de Taxi creado");
     System.out.println("Usted ha pagado: $"+valorPagar);
     mostrarInformacion();
@@ -94,7 +101,7 @@ public void ingresarDatosEncomienda(Cliente cliente){
     try {
         fichero = new FileWriter(nombreArchivo, true);
         bw = new BufferedWriter(fichero);
-        String linea = numServicio+","+tipoEncomiendaelegida + "," + cantidad + "," + peso + ","+valorPagar;
+        String linea = servicioEncomiendasNuevo.getNumServicio()+","+servicioEncomiendasNuevo.getTipo() + "," + servicioEncomiendasNuevo.getCantidad() + "," + servicioEncomiendasNuevo.getPeso() + ","+servicioEncomiendasNuevo.getValorPagar();
         bw.write(linea + "\n");
         System.out.println("Encomienda agregado al archivo.");
 
@@ -116,7 +123,7 @@ public void ingresarDatosEncomienda(Cliente cliente){
     try {
         fichero2 = new FileWriter(nombreArchivo2, true);
         bw2 = new BufferedWriter(fichero2);
-        String linea = numServicio + "," + "E" +","+cliente.getNumCedula()+","+conductor.getNombre()+","+ origen+","+destino+","+fecha+","+hora+"," + cliente.getNumTarjCredito();
+        String linea = servicioEncomiendasNuevo.getNumServicio() + "," + "E" +","+cliente.getNumCedula()+","+conductor.getNombre()+","+ servicioEncomiendasNuevo.getOrigen()+","+servicioEncomiendasNuevo.getDestino()+","+servicioEncomiendasNuevo.getFecha()+","+servicioEncomiendasNuevo.getHora()+"," + cliente.getNumTarjCredito();
           bw2.write(linea + "\n");
           System.out.println("Servicio agregado al archivo.");
 
@@ -131,6 +138,26 @@ public void ingresarDatosEncomienda(Cliente cliente){
               e2.printStackTrace();
           }
       }
+    String nombreArchivo3="pagos.txt";
+        FileWriter fichero3 = null;
+        BufferedWriter bw3 = null;
+        try {
+            fichero3 = new FileWriter(nombreArchivo3, true);
+            bw3 = new BufferedWriter(fichero3);
+            String linea = pagoNuevo.getID_Pago()+","+pagoNuevo.getFechaPago() + "," + pagoNuevo.getNumServicio() + "," +pagoNuevo.getFormaPago()+"," +cliente.getNumCedula()+"," +subtotal+"," +pagoNuevo.getValorPagar();
+            bw3.write(linea + "\n");
+            System.out.println("Pago agregado al archivo.");
+        } catch (IOException e3) {
+            e3.printStackTrace();
+        } finally {
+            try {
+                if (bw3 != null) {
+                    bw3.close();
+                }
+            } catch (IOException e3) {
+                e3.printStackTrace();
+            }
+        }
     }
 
     @Override

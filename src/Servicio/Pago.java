@@ -11,20 +11,36 @@ package Servicio;
 public class Pago {
     public static int ID_Pago=1;
     private String fechaPago;
-    private int idServicio;
+    private int numServicio;
     private TipoPago formaPago;
     private double valorPagar;
 
 public Pago(TipoPago formaPago){
     this.formaPago=formaPago;
   }
-  public Pago(int ID_Pago,String fechaPago,int idServicio,TipoPago formaPago,double valorPagar){
+  public Pago(int ID_Pago,String fechaPago,int numServicio,TipoPago formaPago,double valorPagar){
     this.ID_Pago=ID_Pago;
     this.fechaPago=fechaPago;
-    this.idServicio=idServicio;
+    this.numServicio=numServicio;
     this.formaPago=formaPago;
     this.valorPagar=valorPagar;
   }
+
+    public static int getID_Pago() {
+        return ID_Pago;
+    }
+
+    public String getFechaPago() {
+        return fechaPago;
+    }
+
+    public int getNumServicio() {
+        return numServicio;
+    }
+
+    public double getValorPagar() {
+        return valorPagar;
+    }
   public TipoPago getFormaPago(){
       return formaPago;
   }

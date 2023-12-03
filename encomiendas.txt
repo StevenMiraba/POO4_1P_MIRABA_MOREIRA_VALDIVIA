@@ -5,3 +5,4 @@ numeroServicio,tipoEncomienda,cantidadProductos,peso,subtotal
 "2",MEDICAMENTOS",2,"2.5",6.0"
 "2",MEDICAMENTOS",2,"2.5",6.0"
 "2",MEDICAMENTOS",2,"3.0",6.0"
+2,MEDICAMENTOS,3,4.0,7.0
