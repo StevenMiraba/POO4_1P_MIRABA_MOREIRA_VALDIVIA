@@ -36,8 +36,8 @@ public class Sistema {
         String key1 = sc.nextLine();
         ArrayList<String> Users = obtenerUsuario();
         String sino = "no";
-        Cliente cliente;
-        Conductor conductor;
+        Cliente cliente=null;
+        Conductor conductor=null;
         for (String user : Users) {
             if (user1.equals(user)) {
                 String tipoUsuario=obtenerTipoUsuario(user);
@@ -73,7 +73,7 @@ public class Sistema {
                             String cedulaEx2=linea2[0];
                             if(cedulaEx.equals(cedulaEx2)){
                                 String estadoext=linea2[1];
-                                state estado=state.valueOf(estadoext);
+                                Estado estado=Estado.valueOf(estadoext);
                                 conductor=new Conductor(cedulaEx,estado);
                         }
                     }}
@@ -113,7 +113,7 @@ public class Sistema {
     }
     public static ArrayList<String> obtenerUsuario(){
       ArrayList<String> usuarios = new ArrayList<>();
-      ArrayList<String> Lineas= LeeCliente("Usuario/usuarios.txt");
+      ArrayList<String> Lineas= LeeCliente("usuarios.txt");
       for(String linea:Lineas){
         String[] lineas=linea.split(",");
         String user1=lineas[3];
@@ -123,7 +123,7 @@ public class Sistema {
       return usuarios;
     }
     public static String obtenerTipoUsuario(String usuario){
-      ArrayList<String> Lineas= LeeCliente("Usuario/usuarios.txt");
+      ArrayList<String> Lineas= LeeCliente("usuarios.txt");
       String tipoUsuario=null;
       for(String linea:Lineas){
         String[] lineas=linea.split(",");

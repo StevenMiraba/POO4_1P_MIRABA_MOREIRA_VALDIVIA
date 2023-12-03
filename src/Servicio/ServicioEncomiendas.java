@@ -127,7 +127,7 @@ public void ingresarDatosEncomienda(Cliente cliente){
       ArrayList<String> tipoVehiculo=Conductor.obtenerTipoVehiculo();
       for(int i=0;i<estado.size();i++){
           if(estado.get(i).equals("D") && tipoVehiculo.get(i).equals("M")){
-              state estadoElegido=state.valueOf(estado.get(i));
+              Estado estadoElegido=Estado.valueOf(estado.get(i));
               TipoVehiculo tipoElegido=TipoVehiculo.valueOf(tipoVehiculo.get(i));
               Vehiculo vehiculo=new Vehiculo(tipoElegido);
               Conductor conductor=new Conductor(estadoElegido,vehiculo);

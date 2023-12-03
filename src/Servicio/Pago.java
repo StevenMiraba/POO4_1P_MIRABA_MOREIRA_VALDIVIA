@@ -38,10 +38,10 @@ public Pago(TipoPago formaPago){
       if(formaPago!=null){
           switch(formaPago){
               case EFECTIVO:
-                  formPago="Efectivo";
+                  formPago="EFECTIVO";
                   break;
               case TARJETA_DE_CREDITO:
-                  formPago="TarjetaCredito";
+                  formPago="TARJETA_DE_CREDITO";
               
                   break;
               default:

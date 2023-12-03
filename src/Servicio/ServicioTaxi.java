@@ -72,25 +72,26 @@ public class ServicioTaxi extends Servicio{
     System.out.println("Ingrese el numero de personas que viajan: ");
     numPersonas = sc.nextInt();
     sc.nextLine();
+    
     Pago pago=new Pago(formaPago);
     String comprobar=pago.calcularCosto();
-    double valorPagar=0;
-    if(comprobar.equals("efectivo")){
+    if(formaPagoElegida.equals(comprobar)){
         valorPagar=calcularValorPagar();
-      }else if(comprobar.equals("TarjetaCredito")){
+      }else if(formaPagoElegida.equals(comprobar)){
         valorPagar=calcularValorPagar(cliente.getNumTarjCredito());
       }
       System.out.println("Desea confirmar su viaje?:"+ "\n 1. Si" + "\n 2. No");
       String confirmarViaje=sc.nextLine();
       ServicioTaxi servicioTaxiNuevo;
-      Conductor conductorDisponible=conductorDisponibleTaxi();;
+      Conductor conductorDisponible;
+        conductorDisponible = conductorDisponibleTaxi();
       if(confirmarViaje.equals("1")){
         System.out.println("viaje confirmado");
         servicioTaxiNuevo=new ServicioTaxi(fecha,hora,origen,destino,conductorDisponible,cliente,valorPagar,super.numServicio,super.idServicio,numPersonas,distancia);
         super.numServicio++;
         super.idServicio++;
         System.out.println("Servicio de Taxi creado");
-        System.out.println("Usted ha pagado: $"+valorPagar);
+        System.out.println("Usted ha pagado: $"+servicioTaxiNuevo.valorPagar);
               }else if(confirmarViaje.equals("2")){
         System.out.println("viaje rechazado, será redireccionado al menú principal");
         //cliente.seleccionarServicio(cliente,conductorDisponible);
@@ -123,7 +124,6 @@ public class ServicioTaxi extends Servicio{
         bw2 = new BufferedWriter(fichero2);
         String linea = "\"" + super.numServicio + "\"," + "T" +",\""+cliente.getNumCedula()+",\""+conductorDisponible.getNombre()+ origen+",\""+destino+",\""+fecha+",\""+hora+",\"" + cliente.getNumTarjCredito() + "\"";
         bw2.write(linea + "\n");
-        System.out.println("Servicio agregado al archivo.");
         } catch (IOException e2) {
             e2.printStackTrace();
         } finally {
@@ -155,9 +155,11 @@ public double calcularValorPagar(String numTarjCredito){
   public Conductor conductorDisponibleTaxi(){
       ArrayList<String> estado=Conductor.obtenerEstado();
       ArrayList<String> tipoVehiculo=Conductor.obtenerTipoVehiculo();
+      Estado estadoElegido=null;
       for(int i=0;i<estado.size();i++){
           if(estado.get(i).equals("D") && tipoVehiculo.get(i).equals("A")){
-              state estadoElegido=state.valueOf(estado.get(i));
+              String estadoCh=estado.get(i);
+              estadoElegido = Estado.valueOf(estadoCh);
               TipoVehiculo tipoElegido=TipoVehiculo.valueOf(tipoVehiculo.get(i));
               Vehiculo vehiculo=new Vehiculo(tipoElegido);
               Conductor conductor=new Conductor(estadoElegido,vehiculo);
