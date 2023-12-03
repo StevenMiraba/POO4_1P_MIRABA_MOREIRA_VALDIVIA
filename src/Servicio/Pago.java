@@ -9,19 +9,19 @@ package Servicio;
  * @author STEVEN
  */
 public class Pago {
-    private int ID_Pago;
+    public static int ID_Pago=1;
     private String fechaPago;
-    private int ID_Servicio;
+    private int idServicio;
     private TipoPago formaPago;
     private double valorPagar;
 
 public Pago(TipoPago formaPago){
     this.formaPago=formaPago;
   }
-  public Pago(int ID_Pago,String fechaPago,int ID_Servicio,TipoPago formaPago,double valorPagar){
+  public Pago(int ID_Pago,String fechaPago,int idServicio,TipoPago formaPago,double valorPagar){
     this.ID_Pago=ID_Pago;
     this.fechaPago=fechaPago;
-    this.ID_Servicio=ID_Servicio;
+    this.idServicio=idServicio;
     this.formaPago=formaPago;
     this.valorPagar=valorPagar;
   }

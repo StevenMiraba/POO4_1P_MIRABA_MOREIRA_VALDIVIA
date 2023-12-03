@@ -19,6 +19,7 @@ import java.nio.charset.StandardCharsets;
 public class ServicioTaxi extends Servicio{
     private int numPersonas;
     private int distancia;
+    private static final double costoPorKm=0.50;
     public ServicioTaxi(){
         
     }
@@ -35,6 +36,9 @@ public class ServicioTaxi extends Servicio{
     }
     public int getNumPersonas(){
         return numPersonas;
+    }
+    public int getDistancia(){
+        return distancia;
     }
 
   public void ingresarDatosTaxi(Cliente cliente){
@@ -66,7 +70,13 @@ public class ServicioTaxi extends Servicio{
         conductor = conductorDisponible();
       if(confirmarViaje.equals("1")){
         System.out.println("viaje confirmado");
+        //Crear nuevo servicio taxi
         servicioTaxiNuevo=new ServicioTaxi(fecha,hora,origen,destino,conductor,cliente,valorPagar,numServicio,idServicio,numPersonas,distancia);
+        //Crear nuevo pago
+        Pago pagoNuevo=new Pago(Pago.ID_Pago,fecha,idServicio,formaPago,valorPagar);
+        
+        
+        
         System.out.println("Servicio de Taxi creado");
         System.out.println("Usted ha pagado: $"+servicioTaxiNuevo.valorPagar);
         String nombreArchivo="viajes.txt";
@@ -75,7 +85,7 @@ public class ServicioTaxi extends Servicio{
         try {
             fichero = new FileWriter(nombreArchivo, true);
             bw = new BufferedWriter(fichero);
-            String linea = numServicio+","+numPersonas + "," + distancia + "," +valorPagar;
+            String linea = servicioTaxiNuevo.getNumServicio()+","+servicioTaxiNuevo.getNumPersonas() + "," + servicioTaxiNuevo.getDistancia() + "," +servicioTaxiNuevo.getValorPagar();
             bw.write(linea + "\n");
             System.out.println("Servicio de Taxi agregado al archivo.");
         } catch (IOException e) {
@@ -95,7 +105,7 @@ public class ServicioTaxi extends Servicio{
     try {
         fichero2 = new FileWriter(nombreArchivo2, true);
         bw2 = new BufferedWriter(fichero2);
-        String linea = numServicio + "," + "T" +","+cliente.getNumCedula()+","+conductor.getNombre()+","+ origen+","+destino+","+fecha+","+hora+"," + cliente.getNumTarjCredito();
+        String linea = servicioTaxiNuevo.getNumServicio() + "," + "T" +","+cliente.getNumCedula()+","+conductor.getNombre()+","+ servicioTaxiNuevo.getOrigen()+","+servicioTaxiNuevo.getDestino()+","+servicioTaxiNuevo.getFecha()+","+servicioTaxiNuevo.getHora()+"," + cliente.getNumTarjCredito();
         bw2.write(linea + "\n");
         } catch (IOException e2) {
             e2.printStackTrace();
@@ -117,8 +127,7 @@ public class ServicioTaxi extends Servicio{
 @Override
 public double calcularValorPagar(){
     Random rd=new Random();
-    int distancia =rd.nextInt(41)+5;
-    double costoPorKm=0.50;
+    distancia =rd.nextInt(41)+5;
     double valorPagar=distancia*costoPorKm;
     System.out.println("El subtotal a pagar es: $"+valorPagar);
     System.out.println("El total a pagar es: $"+valorPagar);

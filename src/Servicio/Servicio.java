@@ -53,6 +53,15 @@ public class Servicio{
     public String getOrigen(){
         return origen;
     }
+    public int getNumServicio(){
+        return numServicio;
+    }
+    public int getIdServicio(){
+        return idServicio;
+    }
+    public double getValorPagar(){
+        return valorPagar;
+    }
     
     public double calcularValorPagar(){
         double subtotal=2.2;
