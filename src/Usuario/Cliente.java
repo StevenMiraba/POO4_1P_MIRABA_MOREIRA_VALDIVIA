@@ -41,7 +41,6 @@ public class Cliente extends Usuario{
 
             String linea;
             while ((linea = br.readLine()) != null) {
-                System.out.println(linea);
                 lineas.add(linea);
             }
 

@@ -28,34 +28,6 @@ public class ServicioTaxi extends Servicio{
         this.distancia=distancia;
     }
 
-    public static ArrayList<String> LeeConductor(String nombrearchivo) {
-        ArrayList<String> lineas = new ArrayList<>();
-        File archivo = null;
-        FileReader fr = null;
-        BufferedReader br = null;
-        try {
-            archivo = new File(nombrearchivo);
-            fr = new FileReader(archivo, StandardCharsets.UTF_8);
-            br = new BufferedReader(fr);
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                System.out.println(linea);
-                lineas.add(linea);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (br != null) {
-                    br.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return lineas;
-    }   
-
   public void ingresarDatosTaxi(Cliente cliente){
     Scanner sc=new Scanner(System.in);
     System.out.print("Ingrese el origen de su viaje: ");

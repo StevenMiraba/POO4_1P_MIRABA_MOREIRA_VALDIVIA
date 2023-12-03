@@ -1,2 +1,2 @@
 numeroServicio,tipoEncomienda,cantidadProductos,peso,subtotal
-28383,MEDICAMENTOS,4,4.67,8.00
+28383,MEDICAMENTOS,4,4.67,8.00"2",MEDICAMENTOS",2,"5.2",6.0"
