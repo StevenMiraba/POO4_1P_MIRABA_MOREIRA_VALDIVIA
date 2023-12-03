@@ -5,3 +5,5 @@ numeroServicio,numeroPasajeros,distanciaKM,subtotal
 "2",2",0,"0.0"
 "2",2",0,"11.5"
 "2",2",0,"7.5"
+"2",2",0,"0.0"
+"2",2",0,"20.0"

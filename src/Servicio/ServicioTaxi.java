@@ -115,12 +115,15 @@ public double calcularValorPagar(){
     int distancia =rd.nextInt(41)+5;
     double costoPorKm=0.50;
     double valorPagar=distancia*costoPorKm;
+    System.out.println("El subtotal a pagar es: $"+valorPagar);
     System.out.println("El total a pagar es: $"+valorPagar);
     return valorPagar;
     }
 
 public double calcularValorPagar(String numTarjCredito){
-    double valorPagar=(calcularValorPagar()*1.10);
+    double valorPagar=calcularValorPagar();
+    System.out.println("El subtotal a pagar es: $"+valorPagar);
+    valorPagar=(calcularValorPagar()*1.10);
     System.out.println("El total a pagar es: $"+valorPagar);
     return valorPagar;
     }
