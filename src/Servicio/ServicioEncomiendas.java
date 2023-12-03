@@ -126,12 +126,14 @@ public void ingresarDatosEncomienda(Cliente cliente){
     public Conductor conductorDisponible(){
       ArrayList<String> estado=Conductor.obtenerEstado();
       ArrayList<String> tipoVehiculo=Conductor.obtenerTipoVehiculo();
+      ArrayList<String> nombres=Conductor.obtenerNombreConductor();
       for(int i=0;i<estado.size();i++){
           if(estado.get(i).equals("D") && tipoVehiculo.get(i).equals("M")){
               Estado estadoElegido=Estado.valueOf(estado.get(i));
+              String nombre=nombres.get(i);
               TipoVehiculo tipoElegido=TipoVehiculo.valueOf(tipoVehiculo.get(i));
               Vehiculo vehiculo=new Vehiculo(tipoElegido);
-              Conductor conductor=new Conductor(estadoElegido,vehiculo);
+              Conductor conductor=new Conductor(nombre,estadoElegido,vehiculo);
               return conductor;
           }
       }
