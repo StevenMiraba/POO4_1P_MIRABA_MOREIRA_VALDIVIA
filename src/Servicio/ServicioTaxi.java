@@ -78,6 +78,7 @@ public class ServicioTaxi extends Servicio{
         pagoNuevo=new Pago(Pago.ID_Pago,fecha,idServicio,formaPago,valorPagar);      
         System.out.println("Servicio de Taxi creado");
         System.out.println("Usted ha pagado: $"+servicioTaxiNuevo.valorPagar);
+        mostrarInformacion();
         
         String nombreArchivo="viajes.txt";
         FileWriter fichero = null;
@@ -121,6 +122,7 @@ public class ServicioTaxi extends Servicio{
       }else if(confirmarViaje.equals("2")){
         System.out.println("viaje rechazado, será redireccionado al menú principal");
         cliente.seleccionarServicio(cliente);
+        
       }
       String nombreArchivo3="pagos.txt";
         FileWriter fichero3 = null;

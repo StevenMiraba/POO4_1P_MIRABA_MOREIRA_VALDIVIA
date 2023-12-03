@@ -84,7 +84,7 @@ public class Cliente extends Usuario {
         entrada = sc.nextLine();
         switch (entrada) {
             case "1":
-                svt.ingresarDatosTaxi(cliente);//argumento CLIENTE
+                svt.ingresarDatosTaxi(cliente);
                 break;
             case "2":
                 sve.ingresarDatosEncomienda(cliente);
