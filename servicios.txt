@@ -34,3 +34,4 @@ numeroServicio,tipoServicio,cedulaCliente,nombreConductor,desde,hasta,fecha,hora
 "2",T,"0923547362,"null,"asd,"asd,"asd,"asd,"23456789473639"
 2,T,0923547362,null,asd,asd,asd,asd,23456789473639
 2,E,0923547362,null,asd,asd,asd,asd,23456789473639
+2,T,0923547362,null,asd,asd,asd,asd,23456789473639

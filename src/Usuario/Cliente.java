@@ -121,12 +121,11 @@ public class Cliente extends Usuario {
       }
      
 }
-    
-    @Override
-    public void consultarServicio(){
-        
-    }
-    public void consultarServicio(Cliente cliente) {
+   @Override
+   public void consultarServicio(){
+       
+   }
+    public void consultarServicio(Cliente cliente){
         ArrayList<Servicio> serviciosCliente = new ArrayList<>();
         String cedula = cliente.getNumCedula();
         ArrayList<String> Lineas = LeeConductor("servicios.txt");
