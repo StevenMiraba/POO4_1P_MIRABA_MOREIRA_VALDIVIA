@@ -9,25 +9,49 @@ public class Conductor extends Usuario{
   private String numLicencia;
   private Estado estado;
   private Vehiculo vehiculo;
+
+  /**
+    * Constructor que recibe nombre, estado y vehículo como parámetros.
+    * @param nombre requerido para devolver String
+    * @param estado Estado del conductor.
+    * @param vehiculo Vehículo asociado al conductor.
+    */
   public Conductor(String nombre,Estado estado,Vehiculo vehiculo){
       super(nombre);
       this.estado=estado;
       this.vehiculo=vehiculo;
   }
+  /**
+    * Constructor que recibe parametro de numero de cedula y estado.
+    * @param numCedula Número de cédula del conductor.
+    * @param estado Estado del conductor.
+    */
     public Conductor(String numCedula,Estado estado){
       super(numCedula);
       this.estado=estado;
   }
+  /**
+    * Constructor que recibe parametro de numero de cedula.
+    * @param numCedula Número de cédula del conductor.
+    */
     public Conductor(String numCedula){
       super(numCedula);
   }
-  
+  /**
+     * Constructor que inicializa varios atributos.
+     * @param numLicencia Número de licencia del conductor.
+     * @param estado Estado del conductor.
+     * @param nombre Nombre del conductor.
+     * @param apellido Apellido del conductor.
+     * @param numCedula Número de cédula del conductor.
+     * @param edad Edad del conductor.
+     */
   public Conductor(String numLicencia, Estado estado, String nombre, String apellido, String numCedula, int edad) {
       super(nombre, apellido, "", "", numCedula, "", typeUsuario.R, edad);
       this.numLicencia = numLicencia;
       this.estado = estado;
   }
-
+//Metodos getters y setters
   public String getNumLicencia() {
       return numLicencia;
   }
@@ -39,7 +63,11 @@ public class Conductor extends Usuario{
   public Estado getEstado() {
       return estado;
   }
-
+/**
+   * Método para extraer el nombre de los conductores desde el archivo "usuarios.txt".
+   *
+   * @return Lista de nombres de los conductores.
+   */
 public static ArrayList<String> LeeConductor(String nombrearchivo) {
       ArrayList<String> lineas = new ArrayList<>();
       File archivo = null;
@@ -70,6 +98,11 @@ public static ArrayList<String> LeeConductor(String nombrearchivo) {
       }
       return lineas;
   }
+
+    /**
+     * Se obtiene los tipos de vehículo de los conductores.
+     * @return lista de tipos de vehículo de los conductores.
+     */
   public static ArrayList<String> obtenerEstado(){
     ArrayList<String> estados = new ArrayList<>();
     ArrayList<String> Lineas= LeeConductor("conductores.txt");
@@ -80,7 +113,11 @@ public static ArrayList<String> LeeConductor(String nombrearchivo) {
       }
     return estados;
     }
-  
+
+    /**
+     * Se Obtiene los tipos de vehículo de los conductores.
+     * @return lista de tipos de vehículo de los conductores.
+     */
   public static ArrayList<String> obtenerTipoVehiculo(){
     ArrayList<String> vehiculos = new ArrayList<>();
     ArrayList<String> Lineas= LeeConductor("vehiculos.txt");
@@ -91,7 +128,10 @@ public static ArrayList<String> LeeConductor(String nombrearchivo) {
       }
     return vehiculos;
     }
-  
+  /**
+     * Se obtiene los nombres de los conductores.
+     * @return lista de nombres de los conductores.
+     */
   public static ArrayList<String> obtenerNombreConductor(){
     ArrayList<String> nombresConductor = new ArrayList<>();
     ArrayList<String> Lineas= LeeConductor("usuarios.txt");
@@ -105,7 +145,9 @@ public static ArrayList<String> LeeConductor(String nombrearchivo) {
     }
     return nombresConductor;
     }
-  
+  /**
+     * Presenta el menú para los conductores.
+     */
   public void presentarMenu(){
       System.out.println("/**********MENU CONDUCTOR**********/");
       System.out.println("/*                                */");
@@ -113,7 +155,10 @@ public static ArrayList<String> LeeConductor(String nombrearchivo) {
       System.out.println("1. Consultar Servicio Asignado");
       System.out.println("2. Datos de su vehículo");
   }
-  
+  /**
+     * Menú de Conductor para seleccionar una opcion
+     * @param conductor Conductor que realiza la selección.
+     */
   public void seleccionarMenuConductor(Conductor conductor){
     String entrada = "";
     Scanner sc=new Scanner(System.in);
@@ -131,6 +176,11 @@ public static ArrayList<String> LeeConductor(String nombrearchivo) {
 
     }
   }
+  /**
+   * Muestra los datos del vehículo asignado al conductor.
+   *
+   * @param conductor Conductor que desea ver los datos de su vehículo.
+   */
   public void datosVehiculo(Conductor conductor){
     System.out.println("/***********Datos Vehiculo************/");
     System.out.println("/*                                   */");
@@ -160,9 +210,14 @@ public static ArrayList<String> LeeConductor(String nombrearchivo) {
 
   }
     @Override
-    public void consultarServicio(){
-        
+    public void consultarServicio(){   
     }
+
+  /**
+   * Consulta y muestra el servicio asignado al conductor.
+   *
+   * @param conductor Conductor que desea consultar el servicio asignado.
+   */
     public void consultarServicio(Conductor conductor){
         System.out.println("/***********SERVICIO ASIGNADO************/");
         System.out.println("/*                                      */");
