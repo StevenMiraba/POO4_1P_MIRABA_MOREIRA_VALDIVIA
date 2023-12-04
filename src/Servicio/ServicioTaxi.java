@@ -76,9 +76,9 @@ public class ServicioTaxi extends Servicio{
     System.out.print("Ingrese el destino de su viaje: ");
     destino=cliente.verificar(sc.nextLine());
     System.out.print("Ingrese la fecha: ");
-    fecha=sc.nextLine();  
+    fecha=cliente.verificar(sc.nextLine());
     System.out.print("Ingrese la hora: ");
-    hora=sc.nextLine();
+    hora=cliente.verificar(sc.nextLine());
     System.out.print("Ingrese la forma de pago: ");
     String formaPagoElegida=sc.nextLine().toUpperCase();
     TipoPago formaPago=TipoPago.valueOf(formaPagoElegida);
