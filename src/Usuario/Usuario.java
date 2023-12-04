@@ -20,13 +20,35 @@ public abstract class Usuario{
     protected typeUsuario tipoUsuario;
     protected int edad;
     public Usuario(){}
+    /**
+     * Constructor que recibe el nÃºmero de cÃ©dula del usuario.
+     *
+     * @param numCedula NÃºmero de cÃ©dula del usuario.
+     */
     public Usuario(String numCedula){
         this.numCedula=numCedula;
     }
+    /**
+     * Constructor que recibe nombre y número de cédula del usuario.
+     *
+     * @param nombre    Nombre del usuario.
+     * @param numCedula Número de cédula del usuario.
+     */
     public Usuario(String nombre,String numCedula){
       this.numCedula=numCedula;
     }
-
+    /**
+     * Constructor que inicializa todos los atributos de la clase.
+     *
+     * @param nombre      Nombre del usuario.
+     * @param apellido    Apellido del usuario.
+     * @param user        Nombre de usuario (user).
+     * @param contraseña  Contraseña del usuario.
+     * @param numCedula   Número de cédula del usuario.
+     * @param numCelular  Número de celular del usuario.
+     * @param tipoUsuario Tipo de usuario (enum).
+     * @param edad        Edad del usuario.
+     */
     public Usuario(String nombre,String apellido,String user,String contraseña,String numCedula,String numCelular,typeUsuario tipoUsuario,int edad){
         this.nombre=nombre;
         this.apellido=apellido;
