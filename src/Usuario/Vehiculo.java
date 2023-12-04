@@ -13,9 +13,23 @@ public class Vehiculo{
   public Vehiculo(){
     
   }
+  /**
+     * Constructor que recibe un tipo de vehículo y lo asigna al vehículo.
+     *
+     * @param tipo Tipo de vehículo.
+     */
   public Vehiculo(TipoVehiculo tipo){
     this.tipo=tipo;
   }
+  /**
+     * Constructor que recibe varios parámetros para inicializar las características del vehículo.
+     *
+     * @param placa          Número de placa del vehículo.
+     * @param modelo         Modelo del vehículo.
+     * @param marca          Marca del vehículo.
+     * @param tipo           Tipo de vehículo.
+     * @param codigoVehiculo Código único del vehículo.
+     */
   public Vehiculo(String placa,String modelo,String marca,TipoVehiculo tipo,int codigoVehiculo){
   this.placa=placa;
 this.modelo=modelo;
@@ -56,7 +70,12 @@ this.codigoVehiculo=codigoVehiculo;
   public TipoVehiculo getTipo(){
       return tipo;
   }
-  
+  /**
+     * Lee la información de los vehículos desde un archivo y devuelve las líneas leídas.
+     *
+     * @param nombrearchivo Nombre del archivo que contiene la información de los vehículos.
+     * @return Lista de líneas leídas desde el archivo.
+     */
   public static ArrayList<String> LeeVehiculo(String nombrearchivo) {
     ArrayList<String> lineas = new ArrayList<>();
     File archivo = null;
