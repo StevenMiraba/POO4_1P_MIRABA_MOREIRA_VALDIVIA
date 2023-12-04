@@ -103,7 +103,7 @@ public void ingresarDatosEncomienda(Cliente cliente){
     System.out.print("Ingrese el origen de su viaje: ");
     origen = cliente.verificar(sc.nextLine());
     System.out.print("Ingrese el destino de su viaje: ");
-    destino=sc.nextLine();
+    destino = cliente.verificar(sc.nextLine());
     System.out.print("Ingrese la fecha: ");
     fecha=sc.nextLine();  
     System.out.print("Ingrese la hora: ");
