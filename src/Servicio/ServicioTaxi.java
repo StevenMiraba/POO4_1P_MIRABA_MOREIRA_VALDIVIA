@@ -24,10 +24,33 @@ public class ServicioTaxi extends Servicio{
     public ServicioTaxi(){
         
     }
+    /**
+     * Constructor que inicializa los atributos básicos de un servicio de taxi.
+     *
+     * @param fecha      Fecha del servicio.
+     * @param hora       Hora del servicio.
+     * @param origen     Lugar de origen del servicio.
+     * @param destino    Lugar de destino del servicio.
+     * @param numServicio Número único de servicio.
+     * @param numPersonas Número de personas que viajan en el taxi.
+     */
     public ServicioTaxi(String fecha,String hora,String origen,String destino,int numServicio,int numPersonas){
         super(fecha,hora,origen,destino,numServicio);
         this.numPersonas=numPersonas;
     }
+    /**
+     * Constructor que inicializa todos los atributos de un servicio de taxi.
+     *
+     * @param fecha      Fecha del servicio.
+     * @param hora       Hora del servicio.
+     * @param conductor  Conductor asignado al servicio.
+     * @param cliente    Cliente asociado al servicio.
+     * @param valorPagar  Valor a pagar por el servicio.
+     * @param numServicio Número único de servicio.
+     * @param idServicio Identificación única del servicio.
+     * @param numPersonas Número de personas que viajan en el taxi.
+     * @param distancia  Distancia del viaje en kilómetros.
+     */
     public ServicioTaxi(String fecha,String hora,String origen,String destino,Conductor conductor,Cliente cliente,double valorPagar,int numServicio,int idServicio,int numPersonas,int distancia){
         super(fecha,hora,conductor,cliente,origen,destino,valorPagar,numServicio,idServicio);
         this.numPersonas=numPersonas;
@@ -41,7 +64,11 @@ public class ServicioTaxi extends Servicio{
     public int getDistancia(){
         return distancia;
     }
-
+    /**
+     * Método para ingresar datos del taxi y persistir la información en archivos.
+     *
+     * @param cliente Cliente que solicita el servicio de taxi.
+     */
   public void ingresarDatosTaxi(Cliente cliente){
     Scanner sc=new Scanner(System.in);
     System.out.print("Ingrese el origen de su viaje: ");
@@ -145,7 +172,12 @@ public class ServicioTaxi extends Servicio{
             }
         }
       }
-
+    /**
+     * Calcula el valor a pagar para el servicio de taxi.
+     * Utiliza una distancia aleatoria entre 5 y 45 kilómetros.
+     *
+     * @return Valor a pagar por el servicio de taxi.
+     */
 @Override
 public double calcularValorPagar(){
     Random rd=new Random();
@@ -156,7 +188,13 @@ public double calcularValorPagar(){
     System.out.println("El total a pagar es: $"+valorPagar);
     return valorPagar;
     }
-
+    
+    /**
+     * Calcula el valor a pagar para el servicio de taxi con un recargo del 10% para tarjetas de crédito.
+     *
+     * @param numTarjCredito Número de tarjeta de crédito del cliente.
+     * @return Valor a pagar con recargo por tarjeta de crédito.
+     */
 public double calcularValorPagar(String numTarjCredito){
     subtotal=calcularValorPagar();
     System.out.println("El subtotal a pagar es: $"+subtotal);
@@ -164,7 +202,12 @@ public double calcularValorPagar(String numTarjCredito){
     System.out.println("El total a pagar es: $"+valorPagar);
     return valorPagar;
     }
-
+    /**
+     * Busca y devuelve un conductor disponible para el servicio de taxi.
+     * Elige el primer conductor disponible con un vehículo tipo "A".
+     *
+     * @return Conductor disponible para el servicio de taxi.
+     */
   @Override
   public Conductor conductorDisponible(){
       ArrayList<String> estado=Conductor.obtenerEstado();
@@ -184,7 +227,9 @@ public double calcularValorPagar(String numTarjCredito){
       }
       return null;
   }
-
+/**
+* Muestra la información del servicio de taxi, incluyendo el número de personas.
+*/
 @Override
 public void mostrarInformacion(){
     System.out.println("Tipo: Viaje" + 
