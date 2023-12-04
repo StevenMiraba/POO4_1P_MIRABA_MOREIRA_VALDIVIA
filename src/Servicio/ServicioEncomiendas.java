@@ -101,7 +101,7 @@ System.out.println("Tipo: Encomienda" + "\n Tipo encomienda: " + tipo +"\n canti
 public void ingresarDatosEncomienda(Cliente cliente){
     Scanner sc=new Scanner(System.in);
     System.out.print("Ingrese el origen de su viaje: ");
-    origen =sc.nextLine();
+    origen = cliente.verificar(sc.nextLine());
     System.out.print("Ingrese el destino de su viaje: ");
     destino=sc.nextLine();
     System.out.print("Ingrese la fecha: ");
