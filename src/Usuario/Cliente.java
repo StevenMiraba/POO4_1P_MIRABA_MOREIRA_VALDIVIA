@@ -98,12 +98,20 @@ public class Cliente extends Usuario {
         System.out.println("3. Consultar servicios");
     }
 
+    /**
+ * Verifica la cadena.
+ *
+ * @param a Cadena a verificar.
+ * @return La cadena proporcionada.
+
+ */
     public String verificar(String a) {
         if (a.equalsIgnoreCase("cancelar")) {
             this.seleccionarServicio(this);
         }
         return a;
     }
+    
     /**
      * Permite al cliente seleccionar un servicio.
      *
