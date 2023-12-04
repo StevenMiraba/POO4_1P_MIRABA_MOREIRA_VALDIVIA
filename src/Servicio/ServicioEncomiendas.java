@@ -27,11 +27,36 @@ private double subtotal;
 
 public ServicioEncomiendas(){
 }
+    /**
+     * Constructor que inicializa los atributos básicos de un servicio de encomiendas.
+     *
+     * @param fecha      Fecha del servicio.
+     * @param hora       Hora del servicio.
+     * @param origen     Lugar de origen del servicio.
+     * @param destino    Lugar de destino del servicio.
+     * @param numServicio Número único de servicio.
+     * @param cantidad   Cantidad de productos en la encomienda.
+     */
 public ServicioEncomiendas(String fecha,String hora,String origen,String destino,int numServicio,int cantidad){
         super(fecha,hora,origen,destino,numServicio);
         this.cantidad=cantidad;
     }
-
+    /**
+     * Constructor que inicializa todos los atributos de un servicio de encomiendas.
+     *
+     * @param fecha      Fecha del servicio.
+     * @param hora       Hora del servicio.
+     * @param conductor  Conductor asignado al servicio.
+     * @param cliente    Cliente asociado al servicio.
+     * @param origen     Lugar de origen del servicio.
+     * @param destino    Lugar de destino del servicio.
+     * @param valorPagar Valor a pagar por el servicio.
+     * @param numServicio Número único de servicio.
+     * @param idServicio Identificación única del servicio.
+     * @param cantidad   Cantidad de productos en la encomienda.
+     * @param peso       Peso total de la encomienda en kilogramos.
+     * @param tipo       Tipo de encomienda (fragil, estandar, etc.).
+     */
 public ServicioEncomiendas(String fecha,String hora,Conductor conductor,Cliente cliente,String origen,String destino,double valorPagar,int numServicio,int idServicio,int cantidad, double peso, TipoEncomienda tipo){
     super(fecha,hora,conductor,cliente,origen,destino,valorPagar,numServicio,idServicio);
     this.cantidad=cantidad;
@@ -49,18 +74,30 @@ public ServicioEncomiendas(String fecha,String hora,Conductor conductor,Cliente 
     public double getPeso(){
         return peso;
     }
+        /**
+     * Calcula el valor a pagar por el servicio de encomiendas.
+     *
+     * @return Valor a pagar por el servicio de encomiendas.
+     */
 @Override
 public double calcularValorPagar(){
     subtotal=4+cantidad;
     valorPagar= 4+cantidad;
     return valorPagar;
     }
+        /**
+     * Muestra la información específica del servicio de encomiendas.
+     */
 @Override
 public void mostrarInformacion(){
 System.out.println("Tipo: Encomienda" + "\n Tipo encomienda: " + tipo +"\n cantidad: "+ cantidad);
     super.mostrarInformacion();
     }
-    
+    /**
+     * Método para ingresar datos de una encomienda.
+     *
+     * @param cliente Cliente que realiza la encomienda.
+     */
 public void ingresarDatosEncomienda(Cliente cliente){
     Scanner sc=new Scanner(System.in);
     System.out.print("Ingrese el origen de su viaje: ");
@@ -159,7 +196,11 @@ public void ingresarDatosEncomienda(Cliente cliente){
             }
         }
     }
-
+        /**
+     * Método que busca y devuelve un conductor disponible para el servicio de encomiendas.
+     *
+     * @return Conductor disponible.
+     */
     @Override
     public Conductor conductorDisponible(){
       ArrayList<String> estado=Conductor.obtenerEstado();
