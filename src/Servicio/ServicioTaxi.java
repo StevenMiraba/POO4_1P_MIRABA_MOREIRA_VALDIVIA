@@ -72,9 +72,9 @@ public class ServicioTaxi extends Servicio{
   public void ingresarDatosTaxi(Cliente cliente){
     Scanner sc=new Scanner(System.in);
     System.out.print("Ingrese el origen de su viaje: ");
-    origen =sc.nextLine();
+    origen =cliente.verificar(sc.nextLine());
     System.out.print("Ingrese el destino de su viaje: ");
-    destino=sc.nextLine();
+    destino=cliente.verificar(sc.nextLine());
     System.out.print("Ingrese la fecha: ");
     fecha=sc.nextLine();  
     System.out.print("Ingrese la hora: ");
