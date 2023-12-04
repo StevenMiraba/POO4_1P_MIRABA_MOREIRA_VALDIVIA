@@ -19,12 +19,29 @@ import java.nio.charset.StandardCharsets;
 public class Cliente extends Usuario {
 
     private String numTarjCredito;
-
+    /**
+     * Constructor que inicializa los atributos de un cliente.
+     *
+     * @param nombre         Nombre del cliente.
+     * @param apellido       Apellido del cliente.
+     * @param user           Nombre de usuario del cliente.
+     * @param contraseña     Contraseña del cliente.
+     * @param numCedula      Número de cédula del cliente.
+     * @param numCelular     Número de celular del cliente.
+     * @param tipoUsuario    Tipo de usuario (CLIENTE).
+     * @param edad           Edad del cliente.
+     * @param numTarjCredito Número de tarjeta de crédito del cliente.
+     */
     public Cliente(String nombre, String apellido, String user, String contraseña, String numCedula, String numCelular, typeUsuario tipoUsuario, int edad, String numTarjCredito) {
         super(nombre, apellido, user, contraseña, numCedula, numCelular, tipoUsuario, edad);
         this.numTarjCredito = numTarjCredito;
     }
-
+/**
+     * Constructor que inicializa los atributos de un cliente a partir de su número de cédula y tarjeta de crédito.
+     *
+     * @param numCedula      Número de cédula del cliente.
+     * @param numTarjCredito Número de tarjeta de crédito del cliente.
+     */
     public Cliente(String numCedula, String numTarjCredito) {
         super(numCedula);
         this.numTarjCredito = numTarjCredito;
@@ -33,7 +50,12 @@ public class Cliente extends Usuario {
     public String getNumTarjCredito() {
         return numTarjCredito;
     }
-
+    /**
+     * Lee las líneas de un archivo que contiene información de clientes.
+     *
+     * @param nombrearchivo Nombre del archivo a leer.
+     * @return Lista de líneas del archivo.
+     */
     public static ArrayList<String> LeeCliente(String nombrearchivo) {
         ArrayList<String> lineas = new ArrayList<>();
         File archivo = null;
@@ -64,7 +86,9 @@ public class Cliente extends Usuario {
         }
         return lineas;
     }
-
+    /**
+     * Muestra el menú de opciones disponibles para el cliente.
+     */
     public void presentarMenu() {
         System.out.println("/***************MENU***************/");
         System.out.println("/*                                */");
@@ -73,7 +97,11 @@ public class Cliente extends Usuario {
         System.out.println("2. Solicitar entrega encomienda");
         System.out.println("3. Consultar servicios");
     }
-
+    /**
+     * Permite al cliente seleccionar un servicio.
+     *
+     * @param cliente Cliente que realiza la selección.
+     */
     public void seleccionarServicio(Cliente cliente) {
         String entrada = "";
         Scanner sc = new Scanner(System.in);
@@ -96,6 +124,13 @@ public class Cliente extends Usuario {
         }
     }
 
+    /**
+     * Registra un nuevo cliente en un archivo.
+     *
+     * @param numCedula      Número de cédula del cliente.
+     * @param edad           Edad del cliente.
+     * @param numTarjCredito Número de tarjeta de crédito del cliente.
+     */
     public static void registrarCliente(String numcedula, int edad, String numTarjCredito) {
         String nombreArchivo = "clientes.txt";
 
@@ -125,6 +160,11 @@ public class Cliente extends Usuario {
     public void consultarServicio(){
         
     }
+    /**
+     * Consulta los servicios asociados al cliente y los muestra en la consola.
+     *
+     * @param cliente Cliente que realiza la consulta.
+     */
     public void consultarServicio(Cliente cliente){
         ArrayList<Servicio> serviciosCliente = new ArrayList<>();
         String cedula = cliente.getNumCedula();
